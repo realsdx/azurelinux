@@ -3,8 +3,7 @@ Description=Starts the OpenSM InfiniBand fabric Subnet Manager
 Documentation=man:opensm
 DefaultDependencies=false
 Before=network.target remote-fs-pre.target
-Requires=rdma.service
-After=rdma.service
+After=rdma-hw.target
 
 [Service]
 Type=forking

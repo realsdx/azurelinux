@@ -2,7 +2,7 @@
 Summary:        OpenIB InfiniBand Subnet Manager and management utilities
 Name:           opensm
 Version:        3.3.23
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        GPLv2 OR BSD
 Vendor:         Microsoft Corporation
 Distribution:   Mariner
