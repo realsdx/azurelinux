@@ -1807,8 +1807,8 @@
         "type": "other",
         "other": {
           "name": "cloud-init",
-          "version": "23.3",
-          "downloadUrl": "https://launchpad.net/cloud-init/trunk/23.3/+download/cloud-init-23.3.tar.gz"
+          "version": "23.4.1",
+          "downloadUrl": "https://launchpad.net/cloud-init/trunk/23.4.1/+download/cloud-init-23.4.1.tar.gz"
         }
       }
     },
@@ -3618,8 +3618,8 @@
         "type": "other",
         "other": {
           "name": "fish",
-          "version": "3.5.0",
-          "downloadUrl": "https://github.com/fish-shell/fish-shell/releases/download/3.5.0/fish-3.5.0.tar.xz"
+          "version": "3.6.2",
+          "downloadUrl": "https://github.com/fish-shell/fish-shell/releases/download/3.6.2/fish-3.6.2.tar.xz"
         }
       }
     },
@@ -6540,8 +6540,8 @@
         "type": "other",
         "other": {
           "name": "hyperv-daemons",
-          "version": "5.15.139.1",
-          "downloadUrl": "https://github.com/microsoft/CBL-Mariner-Linux-Kernel/archive/rolling-lts/mariner-2/5.15.139.1.tar.gz"
+          "version": "5.15.143.1",
+          "downloadUrl": "https://github.com/microsoft/CBL-Mariner-Linux-Kernel/archive/rolling-lts/mariner-2/5.15.143.1.tar.gz"
         }
       }
     },
@@ -8121,8 +8121,8 @@
         "type": "other",
         "other": {
           "name": "kernel",
-          "version": "5.15.139.1",
-          "downloadUrl": "https://github.com/microsoft/CBL-Mariner-Linux-Kernel/archive/rolling-lts/mariner-2/5.15.139.1.tar.gz"
+          "version": "5.15.143.1",
+          "downloadUrl": "https://github.com/microsoft/CBL-Mariner-Linux-Kernel/archive/rolling-lts/mariner-2/5.15.143.1.tar.gz"
         }
       }
     },
@@ -8131,8 +8131,8 @@
         "type": "other",
         "other": {
           "name": "kernel-azure",
-          "version": "5.15.139.1",
-          "downloadUrl": "https://github.com/microsoft/CBL-Mariner-Linux-Kernel/archive/rolling-lts/mariner-2/5.15.139.1.tar.gz"
+          "version": "5.15.143.1",
+          "downloadUrl": "https://github.com/microsoft/CBL-Mariner-Linux-Kernel/archive/rolling-lts/mariner-2/5.15.143.1.tar.gz"
         }
       }
     },
@@ -8141,8 +8141,8 @@
         "type": "other",
         "other": {
           "name": "kernel-hci",
-          "version": "5.15.139.1",
-          "downloadUrl": "https://github.com/microsoft/CBL-Mariner-Linux-Kernel/archive/rolling-lts/mariner-2/5.15.139.1.tar.gz"
+          "version": "5.15.143.1",
+          "downloadUrl": "https://github.com/microsoft/CBL-Mariner-Linux-Kernel/archive/rolling-lts/mariner-2/5.15.143.1.tar.gz"
         }
       }
     },
@@ -8151,8 +8151,8 @@
         "type": "other",
         "other": {
           "name": "kernel-headers",
-          "version": "5.15.139.1",
-          "downloadUrl": "https://github.com/microsoft/CBL-Mariner-Linux-Kernel/archive/rolling-lts/mariner-2/5.15.139.1.tar.gz"
+          "version": "5.15.143.1",
+          "downloadUrl": "https://github.com/microsoft/CBL-Mariner-Linux-Kernel/archive/rolling-lts/mariner-2/5.15.143.1.tar.gz"
         }
       }
     },
@@ -8161,8 +8161,8 @@
         "type": "other",
         "other": {
           "name": "kernel-mos",
-          "version": "5.15.139.1",
-          "downloadUrl": "https://github.com/microsoft/CBL-Mariner-Linux-Kernel/archive/rolling-lts/mariner-2-mos/5.15.139.1.tar.gz"
+          "version": "5.15.143.1",
+          "downloadUrl": "https://github.com/microsoft/CBL-Mariner-Linux-Kernel/archive/rolling-lts/mariner-2-mos/5.15.143.1.tar.gz"
         }
       }
     },
@@ -13363,8 +13363,8 @@
         "type": "other",
         "other": {
           "name": "moby-cli",
-          "version": "20.10.25",
-          "downloadUrl": "https://github.com/docker/cli/archive/v20.10.25.tar.gz"
+          "version": "20.10.27",
+          "downloadUrl": "https://github.com/docker/cli/archive/v20.10.27.tar.gz"
         }
       }
     },
@@ -13383,8 +13383,8 @@
         "type": "other",
         "other": {
           "name": "moby-containerd",
-          "version": "1.6.22",
-          "downloadUrl": "https://github.com/containerd/containerd/archive/v1.6.22.tar.gz"
+          "version": "1.6.26",
+          "downloadUrl": "https://github.com/containerd/containerd/archive/v1.6.26.tar.gz"
         }
       }
     },
@@ -13403,8 +13403,8 @@
         "type": "other",
         "other": {
           "name": "moby-engine",
-          "version": "20.10.25",
-          "downloadUrl": "https://github.com/moby/moby/archive/v20.10.25.tar.gz"
+          "version": "20.10.27",
+          "downloadUrl": "https://github.com/moby/moby/archive/v20.10.27.tar.gz"
         }
       }
     },
@@ -13575,6 +13575,16 @@
           "name": "mokutil",
           "version": "0.5.0",
           "downloadUrl": "https://github.com/lcp/mokutil/archive/0.5.0.tar.gz"
+        }
+      }
+    },
+    {
+      "component": {
+        "type": "other",
+        "other": {
+          "name": "moreutils",
+          "version": "0.67",
+          "downloadUrl": "https://deb.debian.org/debian/pool/main/m/moreutils/moreutils_0.67.orig.tar.gz"
         }
       }
     },
@@ -20556,6 +20566,16 @@
           "name": "perl-Tie-IxHash",
           "version": "1.23",
           "downloadUrl": "https://cpan.metacpan.org/authors/id/C/CH/CHORNY/Tie-IxHash-1.23.tar.gz"
+        }
+      }
+    },
+    {
+      "component": {
+        "type": "other",
+        "other": {
+          "name": "perl-Time-Duration",
+          "version": "1.21",
+          "downloadUrl": "https://cpan.metacpan.org/authors/id/N/NE/NEILB/Time-Duration-1.21.tar.gz"
         }
       }
     },
