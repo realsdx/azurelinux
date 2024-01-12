@@ -12,8 +12,8 @@
 
 
 Name:           netplan
-Version:        0.95
-Release:        2%{?dist}
+Version:        0.107.1
+Release:        1%{?dist}
 Summary:        Network configuration tool using YAML
 Group:          System Environment/Base
 Vendor:         Microsoft Corporation
@@ -105,8 +105,13 @@ make check
 
 
 %changelog
+<<<<<<< HEAD
 * Wed Dec 13 2023 Sharath Srikanth Chellappa <sharathsr@microsoft.com> - 0.95-2
 - Add patch for force bringing up devices with no IP addresses
+=======
+* Fri Jan 12 2024 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 0.107.1-1
+- Auto-upgrade to 0.107.1 - none
+>>>>>>> 3712936a7 (Upgrade netplan to 0.107.1 none)
 
 * Fri Sep 17 2021 Suresh Babu Chalamalasetty <schalam@microsoft.com> - 0.95-1
 - Initial CBL-Mariner import from Netplan source (license: GPLv3)
