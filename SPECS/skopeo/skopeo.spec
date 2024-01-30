@@ -14,6 +14,9 @@ BuildRequires:  btrfs-progs-devel
 BuildRequires:  device-mapper-devel
 BuildRequires:  go-md2man
 BuildRequires:  golang >= 1.18
+BuildRequires:  git-core
+BuildRequires:  ostree-devel
+BuildRequires:  shadow-utils-subid-devel
 BuildRequires:  gpgme-devel
 BuildRequires:  libassuan-devel
 BuildRequires:  pkgconfig
@@ -24,7 +27,7 @@ Command line utility to inspect images and repositories directly on Docker
 registries without the need to pull them.
 
 %prep
-%setup -q
+%autosetup
 
 %build
 tar --no-same-owner -xf %{SOURCE0}
@@ -32,7 +35,7 @@ export GOPATH=%{our_gopath}
 make
 
 %install
-make PREFIX=%{buildroot}%{_prefix} install-binary install-docs
+make PREFIX=%{buildroot}%{_prefix} install-binary install-docs install-completions
 
 %check
 make test-unit-local
@@ -44,6 +47,13 @@ make test-unit-local
 %doc README.md
 %{_bindir}/%{name}
 %{_mandir}/man1/%%{name}*
+%dir %{_datadir}/bash-completion
+%dir %{_datadir}/bash-completion/completions
+%{_datadir}/bash-completion/completions/%{name}
+%dir %{_datadir}/fish/vendor_completions.d
+%{_datadir}/fish/vendor_completions.d/%{name}.fish
+%dir %{_datadir}/zsh/site-functions
+%{_datadir}/zsh/site-functions/_%{name}
 
 %changelog
 * Tue Jan 30 2024 Henry Li <lihl@microsoft.com> - 1.14.1-1
