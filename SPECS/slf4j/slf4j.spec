@@ -17,8 +17,8 @@
 
 Summary:        Simple Logging Facade for Java
 Name:           slf4j
-Version:        1.7.30
-Release:        5%{?dist}
+Version:        2.0.11
+Release:        1%{?dist}
 License:        MIT
 Vendor:         Microsoft Corporation
 Distribution:   Mariner
@@ -26,9 +26,6 @@ Group:          Development/Libraries/Java
 URL:            https://www.slf4j.org/
 Source0:        https://github.com/qos-ch/%{name}/archive/v_%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source1:        http://www.apache.org/licenses/LICENSE-2.0.txt
-Source2:        build.xml.tar.bz2
-Patch1:         build-remove-slf4j_api-binder.patch
-Patch2:         slf4j-commons-lang3.patch
 BuildRequires:  ant >= 1.6.5
 BuildRequires:  ant-junit >= 1.6.5
 BuildRequires:  apache-commons-lang3
@@ -234,6 +231,9 @@ rm -rf target/site
 %{_docdir}/%{name}-%{version}/site
 
 %changelog
+* Tue Jan 30 2024 Henry Li <lihl@microsoft.com> - 2.0.11-1
+- Upgrade to v2.0.11
+
 * Fri Mar 17 2023 Mykhailo Bykhovtsev <mbykhovtsev@microsoft.com> - 1.7.30-5
 - Fixing maven provides
 
