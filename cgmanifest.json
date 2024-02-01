@@ -8022,7 +8022,7 @@
         "other": {
           "name": "keda",
           "version": "2.4.0",
-          "downloadUrl": "https://github.com/kedacore/keda/archive/refs/tags/v2.4.0.tar.gz"
+          "downloadUrl": "https://github.com/kedacore/keda/archive/refs/tags/v2.13.0.tar.gz"
         }
       }
     },
