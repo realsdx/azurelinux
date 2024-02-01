@@ -47,11 +47,15 @@ rm -rf bootstrap
 
 # We don't need these plugins
 %pom_remove_plugin :animal-sniffer-maven-plugin
+%pom_remove_plugin :maven-assembly-plugin
 %pom_remove_plugin :maven-failsafe-plugin
-%pom_remove_plugin :maven-jflex-plugin
+%pom_remove_plugin :maven-invoker-plugin
+%pom_remove_plugin :jflex-maven-plugin
 %pom_remove_plugin :maven-enforcer-plugin
+%pom_remove_plugin :exec-maven-plugin
 
-%pom_xpath_set pom:workingDirectory '${basedir}/src/main/java/com/thoughtworks/qdox/parser/impl'
+%mvn_file : %{name}
+%mvn_alias : qdox:qdox
 
 %pom_remove_parent .
 
@@ -76,22 +80,13 @@ GRAMMAR_PATH=$(pwd)/src/grammar/parser.y && \
 	-Jstack=500 ${GRAMMAR_PATH})
 
 # Build artifact
-mkdir -p build/classes
-javac -d build/classes -source 6 -target 6 \
-  $(find src/main/java -name \*.java)
-jar cf build/%{name}-%{version}.jar -C build/classes .
+%mvn_build -f -- -Dmaven.compiler.source=1.7 -Dmaven.compiler.target=1.7
 
 # Inject OSGi manifests
 jar ufm build/%{name}-%{version}.jar %{SOURCE1}
 
 %install
-# jar
-install -dm 0755 %{buildroot}%{_javadir}
-install -pm 0644 build/%{name}-%{version}.jar %{buildroot}%{_javadir}/%{name}.jar
-# pom
-install -dm 0755 %{buildroot}%{_mavenpomdir}
-install -pm 0644 pom.xml %{buildroot}%{_mavenpomdir}/%{name}.pom
-%add_maven_depmap %{name}.pom %{name}.jar -a qdox:qdox
+%mvn_install
 
 %files -f .mfiles
 %license LICENSE.txt
