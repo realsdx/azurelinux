@@ -24,7 +24,7 @@ used to be part of udev, and now is a project on its own.
 
 %package devel
 Summary:        Header and development files for libgudev
-Requires:       %{name} = %{version}
+Requires:       %{name} = %{version}-%{release}
 Provides:       %{name}1-devel = %{version}-%{release}
 
 %description devel
