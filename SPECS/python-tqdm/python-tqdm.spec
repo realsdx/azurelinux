@@ -33,10 +33,10 @@ Python 3 version.
 %autosetup -n %{srcname}-%{version}
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 mkdir -p %{buildroot}%{_mandir}/man1/
 mv -v %{buildroot}%{python3_sitelib}/%{srcname}/%{srcname}.1 %{buildroot}%{_mandir}/man1/
