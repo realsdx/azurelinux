@@ -12,7 +12,7 @@ License:        MPLv2.0 AND MIT
 Vendor:         Microsoft Corporation
 Distribution:   Mariner
 URL:            https://github.com/tqdm/tqdm
-Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz#/%{srcname}-%{version}.tar.gz
+Source0:        %{pypi_source}
 BuildArch:      noarch
 
 %description %{_description}
@@ -42,8 +42,7 @@ mkdir -p %{buildroot}%{_mandir}/man1/
 mv -v %{buildroot}%{python3_sitelib}/%{srcname}/%{srcname}.1 %{buildroot}%{_mandir}/man1/
 
 %check
-pip3 install 'tox>=3.27.1,<4.0.0'
-tox -e setup.py
+%pytest
 
 %files -n python3-%{srcname}
 %license LICENCE
