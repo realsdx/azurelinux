@@ -37,6 +37,7 @@ chmod -x tqdm/completion.sh
 echo 'include tqdm/tqdm.1' >> MANIFEST.in
 echo 'include tqdm/completion.sh' >> MANIFEST.in
 
+%generate_buildrequires
 %pyproject_buildrequires -r
 
 %build
