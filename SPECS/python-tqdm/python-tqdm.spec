@@ -31,15 +31,27 @@ Python 3 version.
 
 %prep
 %autosetup -n %{srcname}-%{version}
+chmod -x tqdm/completion.sh
+
+# https://github.com/tqdm/tqdm/pull/1292
+echo 'include tqdm/tqdm.1' >> MANIFEST.in
+echo 'include tqdm/completion.sh' >> MANIFEST.in
+
+%pyproject_buildrequires -r
 
 %build
 %pyproject_wheel
 
 %install
 %pyproject_install
+%pyproject_save_files %{srcname}
 
-mkdir -p %{buildroot}%{_mandir}/man1/
-mv -v %{buildroot}%{python3_sitelib}/%{srcname}/%{srcname}.1 %{buildroot}%{_mandir}/man1/
+install -Dpm0644 \
+  %{buildroot}%{python3_sitelib}/tqdm/tqdm.1 \
+  %{buildroot}%{_mandir}/man1/tqdm.1
+install -Dpm0644 \
+  %{buildroot}%{python3_sitelib}/tqdm/completion.sh \
+  %{buildroot}%{_datadir}/bash-completion/completions/tqdm.bash
 
 %check
 %pytest
@@ -51,6 +63,9 @@ mv -v %{buildroot}%{python3_sitelib}/%{srcname}/%{srcname}.1 %{buildroot}%{_mand
 %{_mandir}/man1/%{srcname}.1*
 %{python3_sitelib}/%{srcname}-*.egg-info/
 %{python3_sitelib}/%{srcname}/
+%dir %{_datadir}/bash-completion
+%dir %{_datadir}/bash-completion/completions
+%{_datadir}/bash-completion/completions/tqdm.bash
 
 
 %changelog
