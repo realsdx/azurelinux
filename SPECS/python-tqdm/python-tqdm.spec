@@ -24,6 +24,7 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-setuptools_scm
 BuildRequires:  python3-wheel
+BuildRequires:  python3-toml
 
 %description -n python3-%{srcname} %{_description}
 
