@@ -21,6 +21,7 @@ BuildArch:      noarch
 %{?python_provide:%python_provide python3-%{srcname}}
 Summary:        %{summary}
 BuildRequires:  python3-devel
+BuildRequires:  python3-pip
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-setuptools_scm
 BuildRequires:  python3-wheel
