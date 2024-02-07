@@ -37,6 +37,7 @@ BuildRequires:  javapackages-local-bootstrap
 BuildRequires:  javapackages-tools
 BuildRequires:  javassist >= 3.4
 BuildRequires:  junit >= 3.8.2
+BuildRequires:  hamcrest-core
 Requires:       cal10n
 Requires:       java
 # this is ugly hack, which creates package which requires the same,
