@@ -17,8 +17,8 @@
 
 Summary:        Simple Logging Facade for Java
 Name:           slf4j
-Version:        1.7.30
-Release:        5%{?dist}
+Version:        2.0.11
+Release:        1%{?dist}
 License:        MIT
 Vendor:         Microsoft Corporation
 Distribution:   Azure Linux
