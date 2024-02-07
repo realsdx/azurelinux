@@ -121,24 +121,6 @@ sed -i -e "s|ant<|org.apache.ant<|g" integration/pom.xml
     %{_bindir}/xargs -t perl -pi -e 's/
 $//g'
 
-# Unexpanded variable in the manifests
-for i in */src/main/resources/META-INF/MANIFEST.MF; do
-  echo "" >> ${i}
-  echo "Bundle-Version: %{version}" >> ${i}
-  sed -i '/^$/d' ${i}
-  perl -pi -e 's#\$\{parsedVersion\.osgiVersion\}#%{version}#g' ${i}
-  perl -pi -e 's#\$\{slf4j\.api\.minimum\.compatible\.version\}#1\.6\.0#g' ${i}
-done
-
-# The general pattern is that the API package exports API classes and does
-# # not require impl classes. slf4j was breaking that causing "A cycle was
-# # detected when generating the classpath slf4j.api, slf4j.nop, slf4j.api."
-# # The API bundle requires impl package, so to avoid cyclic dependencies
-# # during build time, it is necessary to mark the imported package as an
-# # optional one.
-# # Reported upstream: http://bugzilla.slf4j.org/show_bug.cgi?id=283
-sed -i "/Import-Package/s/$/;resolution:=optional/" slf4j-api/src/main/resources/META-INF/MANIFEST.MF
-
 %pom_change_dep -r -f ::::: :::::
 
 # Disabling log4j12 and modules depending on it.
