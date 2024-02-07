@@ -27,8 +27,6 @@ URL:            https://www.slf4j.org/
 Source0:        https://github.com/qos-ch/%{name}/archive/v_%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source1:        http://www.apache.org/licenses/LICENSE-2.0.txt
 Source2:        build.xml.tar.bz2
-Patch1:         build-remove-slf4j_api-binder.patch
-Patch2:         slf4j-commons-lang3.patch
 BuildRequires:  ant >= 1.6.5
 BuildRequires:  ant-junit >= 1.6.5
 BuildRequires:  apache-commons-lang3
@@ -114,8 +112,6 @@ Log4j implemented over SLF4J.
 
 %prep
 %setup -q -n %{name}-v_%{version} -a2
-%patch1 -p1
-%patch2 -p1
 find . -name "*.jar" | xargs rm
 cp -p %{SOURCE1} APACHE-LICENSE
 
