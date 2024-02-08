@@ -2379,7 +2379,6 @@
                 "sdbus-cpp",
                 "sgx-backwards-compatability",
                 "shim",
-                "shim-unsigned",
                 "shim-unsigned-aarch64",
                 "shim-unsigned-x64",
                 "skopeo",
