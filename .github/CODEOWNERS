@@ -26,7 +26,7 @@
 /SPECS/grubby/* @microsoft/cbl-mariner-bootloader
 /SPECS/shim/* @microsoft/cbl-mariner-bootloader
 /SPECS/shim-unsigned-x64/* @microsoft/cbl-mariner-bootloader
-/SPECS/shim-unsigned-aarch64/* @microsoft/cbl-mariner-bootloader
+/SPECS/shim-unsigned-aa64/* @microsoft/cbl-mariner-bootloader
 /SPECS-SIGNED/grub2-efi-binary-signed/* @microsoft/cbl-mariner-bootloader
 
 /SPECS/dracut/* @microsoft/cbl-mariner-dracut

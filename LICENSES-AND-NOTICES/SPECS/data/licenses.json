@@ -2379,7 +2379,7 @@
                 "sdbus-cpp",
                 "sgx-backwards-compatability",
                 "shim",
-                "shim-unsigned-aarch64",
+                "shim-unsigned-aa64",
                 "shim-unsigned-x64",
                 "skopeo",
                 "span-lite",

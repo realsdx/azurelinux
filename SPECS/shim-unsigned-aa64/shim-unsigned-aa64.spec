@@ -1,6 +1,6 @@
 %global debug_package %{nil}
 Summary:        First stage UEFI bootloader
-Name:           shim-unsigned-aarch64
+Name:           shim-unsigned-aa64
 Version:        15.4
 Release:        2%{?dist}
 License:        BSD
