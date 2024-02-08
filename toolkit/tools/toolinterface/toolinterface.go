@@ -13,29 +13,32 @@ import (
 
 var (
 	app          = kingpin.New("toolinterface", "A command-line interface for Mariner toolkit")
-//	package      = app.Command("package", "Build packages(s)")
-//	spec         = package.Flag("spec", "space separated name(s) of spec(s) to build").Default("all").String()
-  	image        = app.Command("image", "Build image(s)")
-  	config       = image.Flag("config", "image config to build").String()
-    tools        = app.Command("tools", "Build tool(s)")
-    toolchain    = app.Command("toolchain", "Build toolchain")
-	deleteCommand     = app.Command("delete", "Delete an object.")
-	deleteUserCommand = deleteCommand.Command("user", "Delete a user.")
-	deletePostCommand = deleteCommand.Command("post", "Delete a post.")
+	build        = app.Command("build", "Build in Mariner")
+	buildPackage = build.Command("package", "Build package(s)")
+	spec         = buildPackage.Flag("spec", "space separated \"\" enclosed name(s) of spec(s) to build").Default("all").String()
+	
+	buildImage   = build.Command("image", "Build image(s)")
+	config       = buildImage.Flag("config", "image config to build").String()
+	
+	buildTool     = build.Command("tools", "Build tool(s)")
+
+    buildToolchain = build.Command("toolchain", "Build toolchain")
+		
   )
 
 func main() {
 	fmt.Println("Hello world!")
 	switch kingpin.MustParse(app.Parse(os.Args[1:])) {
-		// Register user
-		case image.FullCommand():
+		case buildPackage.FullCommand():
+			fmt.Println("in build_package ")
+			fmt.Println("spec list is ", *spec)
+			interfaceutils.BuildPackage(*spec)
+		case buildImage.FullCommand():
 		  fmt.Println("in image ")
-		  fmt.Println("foncgi file is ", *config)
-		  interfaceutils.BuildPackage(*config)
-		case tools.FullCommand():
-			fmt.Println("in tools ")
-		case "delete user":
-			fmt.Println("in delete user ")
+		  fmt.Println("config file is ", *config)
+		  interfaceutils.BuildImage(*config)
+		case buildTool.FullCommand():
+			fmt.Println("in tools ")		
 	}
 }
 
