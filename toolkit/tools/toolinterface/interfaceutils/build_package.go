@@ -31,13 +31,20 @@ func BuildPackage(spec string) {
 
 func checkSpecExist(specList []string) {
 	fmt.Println("Checking if spec exists for ", specList)
+	elementMap := make(map[string]bool)
+	spec_dir := "/home/neha/repos/test/CBL-Mariner/SPECS"
 	for _, spec := range specList {
 		fmt.Println("spec is ", spec)
+		elementMap[spec] = true
+		myString, err := specreaderutils.FindSpecFiles(spec_dir, elementMap)
+		if err != nil {
+			fmt.Println("found error is ", err)
+		} else {
+			fmt.Println("ERROR freeeeee ", myString[0])
+		}
+		delete(elementMap, spec)
 	}
-	m := make(map[string]bool)
-	_, err := specreaderutils.FindSpecFiles("specs", m)
-	if err != nil {
-		fmt.Println("found error is ", err)
-	}
+	
+	
 	fmt.Println("done with specreader ")
 }
