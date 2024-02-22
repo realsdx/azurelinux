@@ -33,11 +33,9 @@ Python 3 version.
 
 %prep
 %autosetup -n %{srcname}-%{version}
-chmod -x tqdm/completion.sh
-
-# https://github.com/tqdm/tqdm/pull/1292
-echo 'include tqdm/tqdm.1' >> MANIFEST.in
-echo 'include tqdm/completion.sh' >> MANIFEST.in
+sed -i 's/-W=error//' pyproject.toml
+sed -i '1 s/^#!.*/# bash completion for tqdm       -*- shell-script -*-/' tqdm/completion.sh
+chmod a-x tqdm/completion.sh
 
 %generate_buildrequires
 %pyproject_buildrequires -r
