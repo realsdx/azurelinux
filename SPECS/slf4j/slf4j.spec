@@ -114,7 +114,7 @@ Log4j implemented over SLF4J.
 find . -name "*.jar" | xargs rm
 cp -p %{SOURCE1} APACHE-LICENSE
 
-s%pom_disable_module integration
+%pom_disable_module integration
 %pom_disable_module osgi-over-slf4j
 %pom_disable_module slf4j-android
 %pom_disable_module slf4j-ext
