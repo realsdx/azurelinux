@@ -116,7 +116,6 @@ cp -p %{SOURCE1} APACHE-LICENSE
 
 %pom_disable_module integration
 %pom_disable_module osgi-over-slf4j
-%pom_disable_module slf4j-android
 %pom_disable_module slf4j-ext
 %pom_disable_module slf4j-log4j12
  
