@@ -26,7 +26,6 @@ Group:          Development/Libraries/Java
 URL:            https://www.slf4j.org/
 Source0:        https://github.com/qos-ch/%{name}/archive/v_%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source1:        http://www.apache.org/licenses/LICENSE-2.0.txt
-Source2:        build.xml.tar.bz2
 BuildRequires:  ant >= 1.6.5
 BuildRequires:  ant-junit >= 1.6.5
 BuildRequires:  apache-commons-lang3
@@ -37,7 +36,6 @@ BuildRequires:  javapackages-local-bootstrap
 BuildRequires:  javapackages-tools
 BuildRequires:  javassist >= 3.4
 BuildRequires:  junit >= 3.8.2
-BuildRequires:  hamcrest-core
 Requires:       cal10n
 Requires:       java
 # this is ugly hack, which creates package which requires the same,
@@ -112,82 +110,75 @@ Requires:       mvn(org.slf4j:slf4j-api) = %{version}
 Log4j implemented over SLF4J.
 
 %prep
-%setup -q -n %{name}-v_%{version} -a2
+%setup -q -n %{name}-v_%{version}
 find . -name "*.jar" | xargs rm
 cp -p %{SOURCE1} APACHE-LICENSE
 
-sed -i -e "s|ant<|org.apache.ant<|g" integration/pom.xml
-
-%{_bindir}/find -name "*.css" -o -name "*.js" -o -name "*.txt" | \
-    %{_bindir}/xargs -t perl -pi -e 's/
-$//g'
-
-%pom_change_dep -r -f ::::: :::::
-
-# Disabling log4j12 and modules depending on it.
-sed -i "/log4j12/d" maven-build.xml
-%pom_disable_module slf4j-log4j12
-%pom_disable_module jul-to-slf4j
+s%pom_disable_module integration
+%pom_disable_module osgi-over-slf4j
+%pom_disable_module slf4j-android
 %pom_disable_module slf4j-ext
-
+%pom_disable_module slf4j-log4j12
+ 
+# Port to maven-antrun-plugin 3.0.0
+sed -i s/tasks/target/ slf4j-api/pom.xml
+ 
+# Because of a non-ASCII comment in slf4j-api/src/main/java/org/slf4j/helpers/MessageFormatter.java
+%pom_xpath_inject "pom:project/pom:properties" "
+    <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>"
+ 
+# Fix javadoc links
+%pom_xpath_remove "pom:links"
+%pom_xpath_inject "pom:plugin[pom:artifactId[text()='maven-javadoc-plugin']]/pom:configuration" "
+    <detectJavaApiLink>false</detectJavaApiLink>
+    <isOffline>false</isOffline>
+    <links><link>/usr/share/javadoc/java</link></links>"
+ 
+# dos2unix
+find -name "*.css" -o -name "*.js" -o -name "*.txt" | \
+    xargs -t sed -i 's/\r$//'
+ 
+# Remove wagon-ssh build extension
+%pom_xpath_remove pom:extensions
+ 
+# Disable default-jar execution of maven-jar-plugin, which is causing
+# problems with version 3.0.0 of the plugin.
+%pom_xpath_inject "pom:plugin[pom:artifactId='maven-jar-plugin']/pom:executions" "
+    <execution>
+      <id>default-jar</id>
+      <phase>skip</phase>
+    </execution>" slf4j-api
+ 
+# The general pattern is that the API package exports API classes and does
+# not require impl classes. slf4j was breaking that causing "A cycle was
+# detected when generating the classpath slf4j.api, slf4j.nop, slf4j.api."
+# The API bundle requires impl package, so to avoid cyclic dependencies
+# during build time, it is necessary to mark the imported package as an
+# optional one.
+# Reported upstream: http://bugzilla.slf4j.org/show_bug.cgi?id=283
+sed -i '/Import-Package/s/\}$/};resolution:=optional/' slf4j-api/src/main/resources/META-INF/MANIFEST.MF
+ 
+# Source JARs for are required by Maven 3.4.0
+%mvn_package :::sources: sources
+ 
+%mvn_package :%{name}-parent __noinstall
+%mvn_package :%{name}-site __noinstall
+%mvn_package :%{name}-api
+%mvn_package :%{name}-simple
+%mvn_package :%{name}-nop
+ 
 %build
-export CLASSPATH=$(build-classpath \
-                   commons-logging \
-                   commons-lang3 \
-                   javassist-3.14.0 \
-                   cal10n)
-export CLASSPATH=$CLASSPATH:$(pwd)/slf4j-api/target/slf4j-api-%{version}.jar
-export MAVEN_REPO_LOCAL=$(pwd)/.m2
-ant -Dmaven2.jpp.mode=true \
-    -Dmaven.test.skip=true \
-    -Dmaven.repo.local=$MAVEN_REPO_LOCAL \
-    package javadoc \
-
+%mvn_build -f -s -- -Drequired.jdk.version=1.8
+ 
 %install
-# jars
-install -d -m 0755 %{buildroot}%{_javadir}/%{name}
-for i in api jcl jdk14 nop simple; do
-  install -m 644 slf4j-${i}/target/slf4j-${i}-%{version}.jar \
-    %{buildroot}%{_javadir}/%{name}/${i}.jar
-  ln -sf ${i}.jar %{buildroot}%{_javadir}/%{name}/%{name}-${i}.jar
-done
-for i in jcl-over-slf4j log4j-over-slf4j; do
-  install -m 644 ${i}/target/${i}-%{version}.jar %{buildroot}%{_javadir}/%{name}/${i}.jar
-done
-
-# poms
-install -d -m 755 %{buildroot}%{_mavenpomdir}/%{name}
-for i in api jcl jdk14 nop simple; do
-  %pom_remove_parent slf4j-${i}
-  %pom_xpath_inject "pom:project" "
-    <groupId>org.slf4j</groupId>
-    <version>%{version}</version>" slf4j-${i}
-  install -pm 644 slf4j-${i}/pom.xml %{buildroot}%{_mavenpomdir}/%{name}/${i}.pom
-done
-for i in jcl-over-slf4j log4j-over-slf4j; do
-  %pom_remove_parent ${i}
-  %pom_xpath_inject "pom:project" "
-    <groupId>org.slf4j</groupId>
-    <version>%{version}</version>" ${i}
-  install -pm 644 ${i}/pom.xml %{buildroot}%{_mavenpomdir}/%{name}/${i}.pom
-done
-for i in api nop simple; do
-  %add_maven_depmap %{name}/${i}.pom %{name}/${i}.jar
-done
-for i in jcl jdk14 jcl-over-slf4j log4j-over-slf4j; do
-  %add_maven_depmap %{name}/${i}.pom %{name}/${i}.jar -f ${i}
-done
-
+# Compat symlinks
+%mvn_file ':%{name}-{*}' %{name}/%{name}-@1 %{name}/@1
+ 
+%mvn_install
 # manual
-install -d -m 0755 %{buildroot}%{_docdir}/%{name}-%{version}
-rm -f target/site/.htaccess
-cp -pr target/site %{buildroot}%{_docdir}/%{name}-%{version}/
-install -m 644 LICENSE.txt %{buildroot}%{_docdir}/%{name}-%{version}/
-
-# javadoc
-install -d -m 0755 %{buildroot}%{_javadocdir}/%{name}
-cp -pr target/site/* %{buildroot}%{_javadocdir}/%{name}/
-rm -rf target/site
+install -d -m 0755 $RPM_BUILD_ROOT%{_defaultdocdir}/%{name}-manual
+rm -rf target/site/{.htaccess,apidocs}
+cp -pr target/site/* $RPM_BUILD_ROOT%{_defaultdocdir}/%{name}-manual
 
 %files -f .mfiles
 %dir %{_docdir}/%{name}-%{version}
