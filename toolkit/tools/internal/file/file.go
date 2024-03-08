@@ -54,7 +54,7 @@ func Move(src, dst string) (err error) {
 	}
 
 	if src == dst {
-		logger.Log.Warnf("Skipping move. Source and destination are the same file (%s).", src)
+		logger.Log.Warnf("Skipping move. Source and destination are the same file (%s)", src)
 		return
 	}
 

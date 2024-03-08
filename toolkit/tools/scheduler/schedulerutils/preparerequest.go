@@ -103,14 +103,14 @@ func buildNodesToRequests(pkgGraph *pkggraph.PkgGraph, buildState *GraphBuildSta
 		if req.UseCache {
 			expectedFiles, missingFiles := pkggraph.FindRPMFiles(defaultNode.SrpmPath, pkgGraph, nil)
 			if len(missingFiles) > 0 && len(missingFiles) < len(expectedFiles) {
-				logger.Log.Infof("SRPM '%s' will be rebuilt due to partially missing components: %v", defaultNode.SRPMFileName(), missingFiles)
+				logger.Log.Infof("SRPM (%s) will be rebuilt due to partially missing components: %v", defaultNode.SRPMFileName(), missingFiles)
 			}
 
 			req.ExpectedFiles = expectedFiles
 			if len(missingFiles) != 0 {
 				req.UseCache = false
 				req.Freshness = buildState.GetMaxFreshness()
-				logger.Log.Debugf("Resetting freshness to %d due to missing files.", req.Freshness)
+				logger.Log.Debugf("Resetting freshness to (%d) due to missing files", req.Freshness)
 			}
 		}
 
@@ -250,7 +250,7 @@ func canUseCacheForNode(pkgGraph *pkggraph.PkgGraph, node *pkggraph.PkgNode, bui
 		}
 
 		if shouldRebuild {
-			logger.Log.Debugf("Can't use cached version of %v because %v has been rebuilt with a freshness of %d", node.FriendlyName(), dependency.FriendlyName(), inheritedFreshness)
+			logger.Log.Debugf("Can't use cached version of %v because %v has been rebuilt with a freshness of (%d)", node.FriendlyName(), dependency.FriendlyName(), inheritedFreshness)
 			canUseCache = false
 		}
 	}

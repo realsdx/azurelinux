@@ -168,7 +168,7 @@ func (iv *InstallerView) onNextButton(nextPage func()) {
 	case calamaresUIOption:
 		iv.calamaresInstallFunc()
 	default:
-		logger.Log.Panicf("Unknown installer option: %d", iv.optionList.GetCurrentItem())
+		logger.Log.Panicf("Unknown installer option: (%d)", iv.optionList.GetCurrentItem())
 	}
 }
 

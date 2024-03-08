@@ -152,13 +152,13 @@ func buildNode(request *BuildRequest, graphMutex *sync.RWMutex, agent buildagent
 	basePackageName, err := rpm.GetBasePackageNameFromSpecFile(node.SpecPath)
 	if err != nil {
 		// This can only happen if the spec file does not have a name (only an extension).
-		logger.Log.Warnf("An error occured while getting the base package name from (%s). This may result in further errors.", node.SpecPath)
+		logger.Log.Warnf("An error occured while getting the base package name from (%s). This may result in further errors", node.SpecPath)
 	}
 
 	ignored = sliceutils.Contains(ignoredPackages, node.VersionedPkg, sliceutils.PackageVerMatch)
 
 	if ignored {
-		logger.Log.Debugf("%s explicitly marked to be ignored.", baseSrpmName)
+		logger.Log.Debugf("%s explicitly marked to be ignored", baseSrpmName)
 		return
 	}
 
@@ -183,18 +183,18 @@ func testNode(request *BuildRequest, graphMutex *sync.RWMutex, agent buildagents
 	basePackageName, err := rpm.GetBasePackageNameFromSpecFile(node.SpecPath)
 	if err != nil {
 		// This can only happen if the spec file does not have a name (only an extension).
-		logger.Log.Warnf("An error occured while getting the base package name from (%s). This may result in further errors.", node.SpecPath)
+		logger.Log.Warnf("An error occured while getting the base package name from (%s). This may result in further errors", node.SpecPath)
 	}
 
 	ignored = sliceutils.Contains(ignoredTests, node.VersionedPkg, sliceutils.PackageVerMatch)
 
 	if ignored {
-		logger.Log.Debugf("%s (test) explicitly marked to be ignored.", baseSrpmName)
+		logger.Log.Debugf("%s (test) explicitly marked to be ignored", baseSrpmName)
 		return
 	}
 
 	if request.UseCache {
-		logger.Log.Debugf("Using cache for '%s', skipping its test run as well.", baseSrpmName)
+		logger.Log.Debugf("Using cache for (%s), skipping its test run as well", baseSrpmName)
 		return
 	}
 
@@ -300,7 +300,7 @@ func testSRPMFile(agent buildagents.BuildAgent, checkAttempts int, basePackageNa
 
 		_, logFile, buildErr = agent.BuildPackage(basePackageName, srpmFile, logBaseName, outArch, runCheck, dependencies)
 		if buildErr != nil {
-			logger.Log.Warnf("Test build for '%s' failed on a non-test build issue. Error: %s", srpmFile, buildErr)
+			logger.Log.Warnf("Test build for (%s) failed on a non-test build issue. Error: %s", srpmFile, buildErr)
 			return
 		}
 
@@ -313,7 +313,7 @@ func testSRPMFile(agent buildagents.BuildAgent, checkAttempts int, basePackageNa
 	}, checkAttempts, retryDuration)
 
 	if checkFailed {
-		logger.Log.Debugf("Tests failed for '%s' after %d retries.", basePackageName, checkAttempts)
+		logger.Log.Debugf("Tests failed for (%s) after (%d) retries", basePackageName, checkAttempts)
 		err = nil
 	}
 	return

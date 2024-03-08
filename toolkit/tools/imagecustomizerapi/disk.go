@@ -36,11 +36,11 @@ func (d *Disk) IsValid() error {
 	for i, partition := range d.Partitions {
 		err := partition.IsValid()
 		if err != nil {
-			return fmt.Errorf("invalid partition at index %d:\n%w", i, err)
+			return fmt.Errorf("invalid partition at index (%d):\n%w", i, err)
 		}
 
 		if _, existingName := partitionIDSet[partition.ID]; existingName {
-			return fmt.Errorf("duplicate partition ID used (%s) at index %d", partition.ID, i)
+			return fmt.Errorf("duplicate partition ID used (%s) at index (%d)", partition.ID, i)
 		}
 
 		partitionIDSet[partition.ID] = false // dummy value
@@ -51,7 +51,7 @@ func (d *Disk) IsValid() error {
 
 			if isESP != isBoot {
 				return fmt.Errorf(
-					"invalid partition at index %d:\n'esp' and 'boot' flags must be specified together on GPT disks", i)
+					"invalid partition at index (%d):\n'esp' and 'boot' flags must be specified together on GPT disks", i)
 			}
 		}
 	}
@@ -103,7 +103,7 @@ func (d *Disk) IsValid() error {
 		}
 
 		if requiredSize > d.MaxSize {
-			return fmt.Errorf("disk's partitions need %d MiB but MaxSize is only %d MiB", requiredSize, d.MaxSize)
+			return fmt.Errorf("disk's partitions need (%d) MiB but MaxSize is only (%d) MiB", requiredSize, d.MaxSize)
 		}
 	}
 

@@ -58,7 +58,7 @@ func buildDracutModule(dracutModuleName string, dracutDriverName string, imageCh
 	}
 
 	if len(kernelFiles) != 1 {
-		return fmt.Errorf("expected one kernel file, but found %d", len(kernelFiles))
+		return fmt.Errorf("expected one kernel file, but found (%d)", len(kernelFiles))
 	}
 
 	// Extract the version from the kernel filename (e.g., vmlinuz-5.15.131.1-2.cm2 -> 5.15.131.1-2.cm2)

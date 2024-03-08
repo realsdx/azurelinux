@@ -63,15 +63,15 @@ func main() {
 	}
 
 	if !(*maxDepth == -1 || *maxDepth >= 1) {
-		logger.Log.Fatalf("Invalid max depth '%d', valid ranges are -1, >=1", *maxDepth)
+		logger.Log.Fatalf("Invalid max depth (%d), valid ranges are -1, >=1", *maxDepth)
 	}
 
 	// We can color the entries when using --tree, or limit the output in all modes with --rpm-filter
 	configureFilterFiles(filterFile, filter)
 	if len(*filterFile) > 0 && (*filter || *printTree) {
-		logger.Log.Infof("Applying package filter from '%s'", *filterFile)
+		logger.Log.Infof("Applying package filter from (%s)", *filterFile)
 	} else {
-		logger.Log.Infof("Filter file '%s' not applicable here", *filterFile)
+		logger.Log.Infof("Filter file (%s) not applicable here", *filterFile)
 	}
 
 	pkgSearchList := exe.ParseListArgument(*pkgsToSearch)
@@ -94,7 +94,7 @@ func main() {
 	if len(nodeSet) == 0 {
 		logger.Log.Panicf("Could not find any nodes matching pkgs:[%s] or specs:[%s] or goals[%s]", *pkgsToSearch, *specsToSearch, *goalsToSearch)
 	} else {
-		logger.Log.Infof("Found %d nodes to consider", len(nodeSet))
+		logger.Log.Infof("Found (%d) nodes to consider", len(nodeSet))
 	}
 
 	if *reverseSearch {
@@ -124,12 +124,12 @@ func configureFilterFiles(filterFile *string, filter *bool) {
 	}
 	isFile, err := file.PathExists(*filterFile)
 	if err != nil {
-		logger.Log.Panicf("Failed to query if filter file ('%s') exists: %s", *filterFile, err)
+		logger.Log.Panicf("Failed to query if filter file (%s) exists: %s", *filterFile, err)
 	}
 
 	// If we are just trying to use the default, its fine if its missing.
 	if !isFile && setDefault {
-		logger.Log.Warnf("Default toolchain filter file ('%s') not found, setting to ''", *filterFile)
+		logger.Log.Warnf("Default toolchain filter file ((%s)) not found, setting to ''", *filterFile)
 		*filterFile = ""
 	}
 
@@ -228,7 +228,7 @@ func formatNode(n *pkggraph.PkgNode, verbosity int) string {
 	case 2:
 		return filepath.Base(n.RpmPath)
 	case 3:
-		return fmt.Sprintf("'%s' from node '%s'", filepath.Base(n.RpmPath), n.FriendlyName())
+		return fmt.Sprintf("(%s) from node (%s)", filepath.Base(n.RpmPath), n.FriendlyName())
 	case 4:
 		return fmt.Sprintf("(%v)'%#v'", n.VersionedPkg, *n)
 	default:
@@ -242,7 +242,7 @@ func isFilteredFile(path, filterFile string) bool {
 		if len(reservedFiles) == 0 {
 			reservedFileList, err := schedulerutils.ReadReservedFilesList(filterFile)
 			if err != nil {
-				logger.Log.Fatalf("Failed to load filter file '%s': %s", filterFile, err)
+				logger.Log.Fatalf("Failed to load filter file (%s): %s", filterFile, err)
 			}
 			reservedFiles = sliceutils.SliceToSet[string](reservedFileList)
 		}
@@ -312,7 +312,7 @@ func (t *treeSearch) NonFilteredNodes() (nodes []*pkggraph.PkgNode) {
 // Call this ever time a node is processed, will print an update ever 100 nodes
 func (t *treeSearch) printProgress() {
 	if t.nodesVisited%10000 == 0 {
-		logger.Log.Infof("Scanned %d nodes", t.nodesVisited)
+		logger.Log.Infof("Scanned (%d) nodes", t.nodesVisited)
 	}
 	t.nodesVisited++
 }

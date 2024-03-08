@@ -74,7 +74,7 @@ func processEscapedCharacter(text string, start int, count int, escapedCharacter
 			return start, nil
 		}
 	}
-	return i, fmt.Errorf("missing escaped character. '\\' must be followed by a character.")
+	return i, fmt.Errorf("missing escaped character. '\\' must be followed by a character")
 }
 
 func processDoubleQuotedString(text string, start int, count int) (lastProcessed int, err error) {
@@ -104,7 +104,7 @@ func processSingleQuotedString(text string, start int, count int) (lastProcessed
 		}
 		i++
 	}
-	return i, fmt.Errorf("invalid single-quoted string. Missing closing single-quote.")
+	return i, fmt.Errorf("invalid single-quoted string. Missing closing single-quote")
 }
 
 func validateQuotedSubstrings(kernelArguments string) (err error) {

@@ -22,7 +22,7 @@ import (
 
 const (
 	isoMediaLabel         = "CDROM"
-	searchCommandTemplate = "search --label %s --set root"
+	searchCommandTemplate = "search --label (%s) --set root"
 	rootValueTemplate     = "live:LABEL=%s"
 	// The names initrd.img and vmlinuz are expected by isomaker.
 	isoBootDir    = "boot"
@@ -367,10 +367,10 @@ func (b *LiveOSIsoBuilder) findKernelVersion(writeableRootfsDir string) error {
 		return fmt.Errorf("failed to enumerate kernels under (%s):\n%w", kernelParentPath, err)
 	}
 	if len(kernelPaths) == 0 {
-		return fmt.Errorf("did not find any kernels installed under (%s).", kernelParentPath)
+		return fmt.Errorf("did not find any kernels installed under (%s)", kernelParentPath)
 	}
 	if len(kernelPaths) > 1 {
-		return fmt.Errorf("unsupported scenario. found more than one kernel under (%s).", kernelParentPath)
+		return fmt.Errorf("unsupported scenario. found more than one kernel under (%s)", kernelParentPath)
 	}
 	b.artifacts.kernelVersion = kernelPaths[0].Name()
 	logger.Log.Debugf("Found installed kernel version (%s)", b.artifacts.kernelVersion)
@@ -491,7 +491,7 @@ func (b *LiveOSIsoBuilder) generateInitrdImage(rootfsSourceDir, artifactsSourceD
 
 	chroot := safechroot.NewChroot(rootfsSourceDir, true /*isExistingDir*/)
 	if chroot == nil {
-		return fmt.Errorf("failed to create a new chroot object for %s.", rootfsSourceDir)
+		return fmt.Errorf("failed to create a new chroot object for %s", rootfsSourceDir)
 	}
 	defer chroot.Close(true /*leaveOnDisk*/)
 

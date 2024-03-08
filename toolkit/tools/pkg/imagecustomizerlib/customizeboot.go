@@ -72,7 +72,7 @@ func replaceSearchCommand(inputGrubCfgContent string, searchCommand string) (out
 	// Find the search command.
 	match := searchCommandRegex.FindStringSubmatchIndex(inputGrubCfgContent)
 	if match == nil {
-		return "", fmt.Errorf("failed to find the 'search' command.")
+		return "", fmt.Errorf("failed to find the 'search' command")
 	}
 	indent := ""
 	if len(match) > searchCommandRegexIndentEnd {
@@ -120,10 +120,10 @@ func replaceToken(inputGrubCfgContent string, oldToken string, newToken string) 
 func setLinuxPath(inputGrubCfgContent string, linuxPath string) (outputGrubCfgContent string, oldKernelPath string, err error) {
 	match := linuxPathRegex.FindStringSubmatchIndex(inputGrubCfgContent)
 	if match == nil {
-		return "", "", fmt.Errorf("failed to find kernel command line.")
+		return "", "", fmt.Errorf("failed to find kernel command line")
 	}
 	if len(match) <= linuxPathRegexPathEnd {
-		return "", "", fmt.Errorf("failed to find kernel command line path.")
+		return "", "", fmt.Errorf("failed to find kernel command line path")
 	}
 
 	start := match[linuxPathRegexPathStart]
@@ -138,10 +138,10 @@ func setLinuxPath(inputGrubCfgContent string, linuxPath string) (outputGrubCfgCo
 func setInitrdPath(inputGrubCfgContent string, initrdPath string) (outputGrubCfgContent string, oldInitrdPath string, err error) {
 	match := initPathRegex.FindStringSubmatchIndex(inputGrubCfgContent)
 	if match == nil {
-		return "", "", fmt.Errorf("failed to find initrd command line.")
+		return "", "", fmt.Errorf("failed to find initrd command line")
 	}
 	if len(match) <= initPathRegexPathIndexEnd {
-		return "", "", fmt.Errorf("failed to find initrd command line path.")
+		return "", "", fmt.Errorf("failed to find initrd command line path")
 	}
 
 	start := match[initPathRegexPathStart]
@@ -192,7 +192,7 @@ func replaceKernelCommandLineArgumentValue(inputGrubCfgContent string, name stri
 		return "", "", fmt.Errorf("failed to find (%s) command line argument in grub2 config file", name)
 	}
 	if len(match) <= argumentValueEnd {
-		return "", "", fmt.Errorf("failed to find value for (%s).", name)
+		return "", "", fmt.Errorf("failed to find value for (%s)", name)
 	}
 
 	start := match[argumentValueStart]

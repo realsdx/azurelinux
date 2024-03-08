@@ -174,12 +174,12 @@ func FindSpecFiles(specsDir string, specListSet map[string]bool) (specFiles []st
 	if len(specListSet) == 0 {
 		specSearch, err := filepath.Abs(filepath.Join(specsDir, "**/*.spec"))
 		if err != nil {
-			err = fmt.Errorf("invalid spec dir: '%s'. Error:\n%w", specsDir, err)
+			err = fmt.Errorf("invalid spec dir: (%s). Error:\n%w", specsDir, err)
 			return nil, err
 		}
 		specFiles, err = filepath.Glob(specSearch)
 		if err != nil {
-			err = fmt.Errorf("failed to find *.spec files. Check that '%s' is the correct directory. Error:\n%w", specsDir, err)
+			err = fmt.Errorf("failed to find *.spec files. Check that (%s) is the correct directory. Error:\n%w", specsDir, err)
 			return nil, err
 		}
 	} else {
@@ -189,11 +189,11 @@ func FindSpecFiles(specsDir string, specListSet map[string]bool) (specFiles []st
 
 			// If a SPEC is in the parse list, it should be parsed.
 			if err != nil {
-				err = fmt.Errorf("spec search failed on '%s'. Error:\n%w", specSearch, err)
+				err = fmt.Errorf("spec search failed on (%s). Error:\n%w", specSearch, err)
 				return nil, err
 			}
 			if len(matchingSpecFiles) != 1 {
-				err = fmt.Errorf("unexpected number of matches '%d' for spec file '%s'", len(matchingSpecFiles), specName)
+				err = fmt.Errorf("unexpected number of matches (%d) for spec file (%s)", len(matchingSpecFiles), specName)
 				return nil, err
 			}
 			specFiles = append(specFiles, matchingSpecFiles[0])
@@ -214,7 +214,7 @@ func parseSPECs(specsDir, rpmsDir, srpmsDir, toolchainDir, distTag, arch string,
 
 	specFiles, err = FindSpecFiles(specsDir, specListSet)
 	if err != nil {
-		logger.Log.Errorf("Failed to find *.spec files. Check that %s is the correct directory. Error: %v", specsDir, err)
+		logger.Log.Errorf("Failed to find *.spec files. Check that (%s) is the correct directory. Error: %v", specsDir, err)
 		return
 	}
 
@@ -581,7 +581,7 @@ func parseRichDependency(richDependency string) (versions []*pkgjson.PackageVer,
 	// All single condition strings are surrounded by spaces to match full words.
 	for _, singleCondition := range unsupportedBooleanConditions {
 		if strings.Contains(richDependency, singleCondition) {
-			err = fmt.Errorf("found unsupported boolean condition '%s' inside '%s'. %s", singleCondition, richDependency, documentationHint)
+			err = fmt.Errorf("found unsupported boolean condition (%s) inside (%s). %s", singleCondition, richDependency, documentationHint)
 			return
 		}
 	}
@@ -592,7 +592,7 @@ func parseRichDependency(richDependency string) (versions []*pkgjson.PackageVer,
 		conditionsCount += strings.Count(richDependency, singleCondition)
 	}
 	if conditionsCount > 1 {
-		err = fmt.Errorf("found more than one boolean condition inside '%s'. %s", richDependency, documentationHint)
+		err = fmt.Errorf("found more than one boolean condition inside (%s). %s", richDependency, documentationHint)
 		return
 	}
 
@@ -614,12 +614,12 @@ func parseRichDependency(richDependency string) (versions []*pkgjson.PackageVer,
 
 	switch {
 	case strings.Contains(richDependency, andCondition) || strings.Contains(richDependency, orCondition) || strings.Contains(richDependency, withCondition):
-		logger.Log.Warnf("Found a boolean condition '%s', make sure both packages are available. %s.", richDependency, documentationHint)
+		logger.Log.Warnf("Found a boolean condition (%s), make sure both packages are available. %s", richDependency, documentationHint)
 	case strings.Contains(richDependency, ifCondition):
-		logger.Log.Warnf("Found a boolean condition '%s', make sure the packages on the left is available. %s.", richDependency, documentationHint)
+		logger.Log.Warnf("Found a boolean condition (%s), make sure the packages on the left is available. %s", richDependency, documentationHint)
 		packageStrings = []string{packageStrings[0]}
 	default:
-		err = fmt.Errorf("found a unsupported boolean condition inside '%s'. %s", richDependency, documentationHint)
+		err = fmt.Errorf("found a unsupported boolean condition inside (%s). %s", richDependency, documentationHint)
 		return
 	}
 
@@ -640,7 +640,7 @@ func parseRichDependency(richDependency string) (versions []*pkgjson.PackageVer,
 // if the condition is not met.
 func minSliceLength(slice []string, minLength int) (err error) {
 	if len(slice) < minLength {
-		return fmt.Errorf("slice is not required length (minLength = %d) %+v", minLength, slice)
+		return fmt.Errorf("slice is not required length (minLength = (%d)) %+v", minLength, slice)
 	}
 	return
 }
@@ -676,7 +676,7 @@ func convertToToolchainRpmPath(currentRpmPath, arch, toolchainDir string) (toolc
 	rpmFileName := filepath.Base(currentRpmPath)
 	toolchainPath = filepath.Join(toolchainDir, arch)
 	toolchainPath = filepath.Join(toolchainPath, rpmFileName)
-	logger.Log.Debugf("Toolchain changing '%s' to '%s'.", currentRpmPath, toolchainPath)
+	logger.Log.Debugf("Toolchain changing (%s) to (%s)", currentRpmPath, toolchainPath)
 	return toolchainPath
 }
 

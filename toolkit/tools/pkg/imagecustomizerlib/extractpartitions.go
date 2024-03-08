@@ -76,7 +76,7 @@ func compressWithZstd(partitionRawFilepath string) (partitionFilepath string, er
 	// Using -f to overwrite a file with same name if it exists.
 	err = shell.ExecuteLive(true, "zstd", "-f", "-9", "-T0", partitionRawFilepath)
 	if err != nil {
-		return "", fmt.Errorf("failed to compress %s with zstd:\n%w", partitionRawFilepath, err)
+		return "", fmt.Errorf("failed to compress (%s) with zstd:\n%w", partitionRawFilepath, err)
 	}
 
 	// Remove raw file since output partition format is raw-zst.

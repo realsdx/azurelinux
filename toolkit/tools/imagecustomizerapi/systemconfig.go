@@ -61,11 +61,11 @@ func (s *SystemConfig) IsValid() error {
 	for i, partition := range s.PartitionSettings {
 		err = partition.IsValid()
 		if err != nil {
-			return fmt.Errorf("invalid PartitionSettings item at index %d: %w", i, err)
+			return fmt.Errorf("invalid PartitionSettings item at index (%d): %w", i, err)
 		}
 
 		if _, existingName := partitionIDSet[partition.ID]; existingName {
-			return fmt.Errorf("duplicate PartitionSettings ID used (%s) at index %d", partition.ID, i)
+			return fmt.Errorf("duplicate PartitionSettings ID used (%s) at index (%d)", partition.ID, i)
 		}
 
 		partitionIDSet[partition.ID] = false // dummy value
@@ -74,21 +74,21 @@ func (s *SystemConfig) IsValid() error {
 	for i, script := range s.PostInstallScripts {
 		err = script.IsValid()
 		if err != nil {
-			return fmt.Errorf("invalid PostInstallScripts item at index %d: %w", i, err)
+			return fmt.Errorf("invalid PostInstallScripts item at index (%d): %w", i, err)
 		}
 	}
 
 	for i, script := range s.FinalizeImageScripts {
 		err = script.IsValid()
 		if err != nil {
-			return fmt.Errorf("invalid FinalizeImageScripts item at index %d: %w", i, err)
+			return fmt.Errorf("invalid FinalizeImageScripts item at index (%d): %w", i, err)
 		}
 	}
 
 	for i, user := range s.Users {
 		err = user.IsValid()
 		if err != nil {
-			return fmt.Errorf("invalid Users item at index %d: %w", i, err)
+			return fmt.Errorf("invalid Users item at index (%d): %w", i, err)
 		}
 	}
 
@@ -117,18 +117,18 @@ func (s *SystemConfig) IsValid() error {
 			// Validate the overlay itself
 			err := overlay.IsValid()
 			if err != nil {
-				return fmt.Errorf("invalid Overlay (LowerDir: '%s') at index %d: %w", overlay.LowerDir, i, err)
+				return fmt.Errorf("invalid Overlay (LowerDir: (%s)) at index (%d): %w", overlay.LowerDir, i, err)
 			}
 
 			// Check for unique UpperDir
 			if _, exists := upperDirs[overlay.UpperDir]; exists {
-				return fmt.Errorf("duplicate UpperDir '%s' found in Overlay (LowerDir: '%s') at index %d", overlay.UpperDir, overlay.LowerDir, i)
+				return fmt.Errorf("duplicate UpperDir (%s) found in Overlay (LowerDir: (%s)) at index (%d)", overlay.UpperDir, overlay.LowerDir, i)
 			}
 			upperDirs[overlay.UpperDir] = true
 
 			// Check for unique WorkDir
 			if _, exists := workDirs[overlay.WorkDir]; exists {
-				return fmt.Errorf("duplicate WorkDir '%s' found in Overlay (LowerDir: '%s') at index %d", overlay.WorkDir, overlay.LowerDir, i)
+				return fmt.Errorf("duplicate WorkDir (%s) found in Overlay (LowerDir: (%s)) at index (%d)", overlay.WorkDir, overlay.LowerDir, i)
 			}
 			workDirs[overlay.WorkDir] = true
 

@@ -28,7 +28,7 @@ func (c *Config) IsValid() (err error) {
 		for i, disk := range disks {
 			err := disk.IsValid()
 			if err != nil {
-				return fmt.Errorf("invalid disk at index %d:\n%w", i, err)
+				return fmt.Errorf("invalid disk at index (%d):\n%w", i, err)
 			}
 		}
 	}
@@ -88,7 +88,7 @@ func (c *Config) IsValid() (err error) {
 			})
 		})
 		if !diskExists {
-			return fmt.Errorf("invalid PartitionSetting at index %d:\nno partition with matching ID (%s)", i,
+			return fmt.Errorf("invalid PartitionSetting at index (%d):\nno partition with matching ID (%s)", i,
 				partitionSetting.ID)
 		}
 	}

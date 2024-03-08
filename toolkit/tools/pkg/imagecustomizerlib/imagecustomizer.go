@@ -265,7 +265,7 @@ func validateIsoConfig(baseConfigPath string, config *imagecustomizerapi.Iso) er
 
 func validateIsoKernelCommandline(kernelCommandLine imagecustomizerapi.KernelCommandLine) error {
 	if kernelCommandLine.SELinux != imagecustomizerapi.SELinuxDefault {
-		return fmt.Errorf("unsupported SELinux configuration for the output ISO image.")
+		return fmt.Errorf("unsupported SELinux configuration for the output ISO image")
 	}
 	return nil
 }
@@ -288,14 +288,14 @@ func validateSystemConfig(baseConfigPath string, config *imagecustomizerapi.Syst
 	for i, script := range config.PostInstallScripts {
 		err = validateScript(baseConfigPath, &script)
 		if err != nil {
-			return fmt.Errorf("invalid PostInstallScripts item at index %d: %w", i, err)
+			return fmt.Errorf("invalid PostInstallScripts item at index (%d): %w", i, err)
 		}
 	}
 
 	for i, script := range config.FinalizeImageScripts {
 		err = validateScript(baseConfigPath, &script)
 		if err != nil {
-			return fmt.Errorf("invalid FinalizeImageScripts item at index %d: %w", i, err)
+			return fmt.Errorf("invalid FinalizeImageScripts item at index (%d): %w", i, err)
 		}
 	}
 
@@ -446,7 +446,7 @@ func customizeVerityImageHelper(buildDir string, baseConfigPath string, config *
 
 	err = shell.ExecuteLiveWithErr(1, "qemu-nbd", "-c", nbdDevice, "-f", "raw", buildImageFile)
 	if err != nil {
-		return fmt.Errorf("failed to connect nbd %s to image %s: %s", nbdDevice, buildImageFile, err)
+		return fmt.Errorf("failed to connect nbd (%s) to image %s: %s", nbdDevice, buildImageFile, err)
 	}
 	defer func() {
 		// Disconnect the NBD device when the function returns

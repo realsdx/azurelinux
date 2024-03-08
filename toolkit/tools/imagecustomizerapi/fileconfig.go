@@ -39,7 +39,7 @@ func (l *FileConfigList) IsValid() (err error) {
 	for i, fileConfig := range *l {
 		err = fileConfig.IsValid()
 		if err != nil {
-			return fmt.Errorf("invalid FileConfig at index %d:\n%w", i, err)
+			return fmt.Errorf("invalid FileConfig at index (%d):\n%w", i, err)
 		}
 	}
 

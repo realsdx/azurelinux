@@ -27,13 +27,13 @@ type Modules struct {
 func (m *Modules) IsValid() error {
 	for i, module := range m.Load {
 		if err := module.IsValid(); err != nil {
-			return fmt.Errorf("invalid module '%s' in Modules.Load at index %d: %w", module.Name, i, err)
+			return fmt.Errorf("invalid module (%s) in Modules.Load at index (%d): %w", module.Name, i, err)
 		}
 	}
 
 	for i, module := range m.Disable {
 		if err := module.IsValid(); err != nil {
-			return fmt.Errorf("invalid module '%s' in Modules.Disable at index %d: %w", module.Name, i, err)
+			return fmt.Errorf("invalid module (%s) in Modules.Disable at index (%d): %w", module.Name, i, err)
 		}
 	}
 
