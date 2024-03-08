@@ -98,7 +98,7 @@ type specState struct {
 }
 
 var (
-	app = kingpin.New("srpmpacker", "A tool to package a SRPM")
+	app = kingpin.New("srpmpacker", "A tool to package a SRPM.")
 
 	specsDir      = exe.InputDirFlag(app, "Path to the SPEC directory to create SRPMs from.")
 	outDir        = exe.OutputDirFlag(app, "Directory to place the output SRPM.")

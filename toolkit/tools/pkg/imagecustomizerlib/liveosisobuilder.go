@@ -22,7 +22,7 @@ import (
 
 const (
 	isoMediaLabel         = "CDROM"
-	searchCommandTemplate = "search --label (%s) --set root"
+	searchCommandTemplate = "search --label %s --set root"
 	rootValueTemplate     = "live:LABEL=%s"
 	// The names initrd.img and vmlinuz are expected by isomaker.
 	isoBootDir    = "boot"

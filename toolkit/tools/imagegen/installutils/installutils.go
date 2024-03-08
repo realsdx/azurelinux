@@ -1796,7 +1796,7 @@ func selinuxRelabelFiles(installChroot *safechroot.Chroot, mountPointToFsTypeMap
 					lastFile = fmt.Sprintf("%v", args)
 				}
 				if (files % 1000) == 0 {
-					ReportActionf("SELinux: labelled (%d) files", files)
+					ReportActionf("SELinux: labelled %d files", files)
 				}
 			}
 			err := shell.ExecuteLiveWithCallback(onStdout, logger.Log.Warn, squashErrors, "setfiles", "-m", "-v", "-r",
@@ -1804,7 +1804,7 @@ func selinuxRelabelFiles(installChroot *safechroot.Chroot, mountPointToFsTypeMap
 			if err != nil {
 				return fmt.Errorf("failed while labeling files (last file: %s) %w", lastFile, err)
 			}
-			ReportActionf("SELinux: labelled (%d) files", files)
+			ReportActionf("SELinux: labelled %d files", files)
 			return err
 		})
 		if err != nil {
@@ -2204,7 +2204,7 @@ func setGrubCfgAdditionalCmdLine(grubPath string, kernelCommandline configuratio
 		extraPattern = "{{.ExtraCommandLine}}"
 	)
 
-	logger.Log.Debugf("Adding ExtraCommandLine((%s)) to (%s)", kernelCommandline.ExtraCommandLine, grubPath)
+	logger.Log.Debugf("Adding ExtraCommandLine (%s) to (%s)", kernelCommandline.ExtraCommandLine, grubPath)
 	err = sed(extraPattern, kernelCommandline.ExtraCommandLine, kernelCommandline.GetSedDelimeter(), grubPath)
 	if err != nil {
 		logger.Log.Warnf("Failed to append extra paramters to grub.cfg: %v", err)
@@ -2225,7 +2225,7 @@ func setGrubCfgIMA(grubPath string, kernelCommandline configuration.KernelComman
 		ima += fmt.Sprintf("%v%v ", imaPrefix, policy)
 	}
 
-	logger.Log.Debugf("Adding ImaPolicy((%s)) to (%s)", ima, grubPath)
+	logger.Log.Debugf("Adding ImaPolicy (%s) to (%s)", ima, grubPath)
 	err = sed(imaPattern, ima, kernelCommandline.GetSedDelimeter(), grubPath)
 	if err != nil {
 		logger.Log.Warnf("Failed to set grub.cfg's IMA setting: %v", err)
@@ -2249,7 +2249,7 @@ func setGrubCfgSELinux(grubPath string, kernelCommandline configuration.KernelCo
 		selinux = ""
 	}
 
-	logger.Log.Debugf("Adding SELinuxConfiguration((%s)) to (%s)", selinux, grubPath)
+	logger.Log.Debugf("Adding SELinuxConfiguration (%s) to (%s)", selinux, grubPath)
 	err = sed(selinuxPattern, selinux, kernelCommandline.GetSedDelimeter(), grubPath)
 	if err != nil {
 		logger.Log.Warnf("Failed to set grub.cfg's SELinux setting: %v", err)
@@ -2277,7 +2277,7 @@ func setGrubCfgFIPS(isBootPartitionSeparate bool, bootUUID, grubPath string, ker
 		}
 	}
 
-	logger.Log.Debugf("Adding EnableFIPS((%s)) to (%s)", fipsKernelArgument, grubPath)
+	logger.Log.Debugf("Adding EnableFIPS (%s) to (%s)", fipsKernelArgument, grubPath)
 	err = sed(enableFIPSPattern, fipsKernelArgument, kernelCommandline.GetSedDelimeter(), grubPath)
 	if err != nil {
 		logger.Log.Warnf("Failed to set grub.cfg's EnableFIPS setting: %v", err)
@@ -2302,7 +2302,7 @@ func setGrubCfgCGroup(grubPath string, kernelCommandline configuration.KernelCom
 		cgroup = ""
 	}
 
-	logger.Log.Debugf("Adding CGroupConfiguration((%s)) to (%s)", cgroup, grubPath)
+	logger.Log.Debugf("Adding CGroupConfiguration (%s) to (%s)", cgroup, grubPath)
 	err = sed(cgroupPattern, cgroup, kernelCommandline.GetSedDelimeter(), grubPath)
 	if err != nil {
 		logger.Log.Warnf("Failed to set grub.cfg's CGroup setting: %v", err)
@@ -2333,7 +2333,7 @@ func setGrubCfgReadOnlyVerityRoot(grubPath string, readOnlyRoot diskutils.Verity
 
 	if readOnlyRoot.MappedName != "" {
 		// Basic set of verity arguments common to all use cases
-		verityArgs = fmt.Sprintf("%s (%s) %s (%s) %s (%s) %s %s",
+		verityArgs = fmt.Sprintf("%s %s %s %s %s %s %s %s",
 			verityMountArg,
 			verityHashArg,
 			verityRootHashArg,
@@ -2345,14 +2345,14 @@ func setGrubCfgReadOnlyVerityRoot(grubPath string, readOnlyRoot diskutils.Verity
 		)
 		// Only include the FEC arguments if we have FEC enabled
 		if readOnlyRoot.FecRoots > 0 {
-			verityArgs = fmt.Sprintf("%s (%s) %s", verityArgs, verityFECDataArg, verityFECRootsArg)
+			verityArgs = fmt.Sprintf("%s %s %s", verityArgs, verityFECDataArg, verityFECRootsArg)
 		}
 		if readOnlyRoot.UseRootHashSignature {
 			verityArgs = fmt.Sprintf("%s %s", verityArgs, verityRootHashSigArg)
 		}
 	}
 
-	logger.Log.Debugf("Adding Verity Root ((%s)) to %s", verityArgs, grubPath)
+	logger.Log.Debugf("Adding Verity Root (%s) to (%s)", verityArgs, grubPath)
 	err = sed(verityPattern, verityArgs, cmdline.GetSedDelimeter(), grubPath)
 	if err != nil {
 		logger.Log.Warnf("Failed to set grub.cfg's Verity Root setting: %v", err)
@@ -2373,7 +2373,7 @@ func setGrubCfgLVM(grubPath, luksUUID string) (err error) {
 		lvm = fmt.Sprintf("%v%v", lvmPrefix, diskutils.GetEncryptedRootVolPath())
 	}
 
-	logger.Log.Debugf("Adding lvm((%s)) to (%s)", lvm, grubPath)
+	logger.Log.Debugf("Adding lvm (%s) to (%s)", lvm, grubPath)
 	err = sed(lvmPattern, lvm, cmdline.GetSedDelimeter(), grubPath)
 	if err != nil {
 		logger.Log.Warnf("Failed to set grub.cfg's LVM setting: %v", err)
@@ -2395,7 +2395,7 @@ func setGrubCfgLuksUUID(grubPath, uuid string) (err error) {
 		luksUUID = fmt.Sprintf("%v%v", luksUUIDPrefix, uuid)
 	}
 
-	logger.Log.Debugf("Adding luks((%s)) to (%s)", luksUUID, grubPath)
+	logger.Log.Debugf("Adding luks (%s) to (%s)", luksUUID, grubPath)
 	err = sed(luksUUIDPattern, luksUUID, cmdline.GetSedDelimeter(), grubPath)
 	if err != nil {
 		logger.Log.Warnf("Failed to set grub.cfg's luksUUID: %v", err)
@@ -2411,7 +2411,7 @@ func setGrubCfgBootUUID(bootUUID, grubPath string) (err error) {
 	)
 	var cmdline configuration.KernelCommandLine
 
-	logger.Log.Debugf("Adding UUID((%s)) to (%s)", bootUUID, grubPath)
+	logger.Log.Debugf("Adding UUID (%s) to (%s)", bootUUID, grubPath)
 	err = sed(bootUUIDPattern, bootUUID, cmdline.GetSedDelimeter(), grubPath)
 	if err != nil {
 		logger.Log.Warnf("Failed to set grub.cfg's bootUUID: %v", err)
@@ -2440,7 +2440,7 @@ func setGrubCfgBootPrefix(bootPrefix, grubPath string) (err error) {
 	)
 	var cmdline configuration.KernelCommandLine
 
-	logger.Log.Debugf("Adding BootPrefix((%s)) to (%s)", bootPrefix, grubPath)
+	logger.Log.Debugf("Adding BootPrefix (%s) to (%s)", bootPrefix, grubPath)
 	err = sed(bootPrefixPattern, bootPrefix, cmdline.GetSedDelimeter(), grubPath)
 	if err != nil {
 		logger.Log.Warnf("Failed to set grub.cfg's bootPrefix: %v", err)
@@ -2457,7 +2457,7 @@ func setGrubCfgEncryptedVolume(grubPath string) (err error) {
 	var cmdline configuration.KernelCommandLine
 
 	encryptedVol := fmt.Sprintf("%v%v%v%v", "(", lvmPrefix, diskutils.GetEncryptedRootVol(), ")")
-	logger.Log.Debugf("Adding EncryptedVolume((%s)) to (%s)", encryptedVol, grubPath)
+	logger.Log.Debugf("Adding EncryptedVolume (%s) to (%s)", encryptedVol, grubPath)
 	err = sed(encryptedVolPattern, encryptedVol, cmdline.GetSedDelimeter(), grubPath)
 	if err != nil {
 		logger.Log.Warnf("Failed to grub.cfg's encryptedVolume: %v", err)
@@ -2476,7 +2476,7 @@ func setGrubCfgRootDevice(rootDevice, grubPath, luksUUID string) (err error) {
 		rootDevice = diskutils.GetEncryptedRootVolMapping()
 	}
 
-	logger.Log.Debugf("Adding RootDevice((%s)) to (%s)", rootDevice, grubPath)
+	logger.Log.Debugf("Adding RootDevice (%s) to (%s)", rootDevice, grubPath)
 	err = sed(rootDevicePattern, rootDevice, cmdline.GetSedDelimeter(), grubPath)
 	if err != nil {
 		logger.Log.Warnf("Failed to set grub.cfg's rootDevice: %v", err)
