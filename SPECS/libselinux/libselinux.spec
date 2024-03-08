@@ -47,7 +47,7 @@ The libselinux-utils package contains the utilities
 Summary:        Header files and libraries used to build SELinux
 Group:          Development/Libraries
 Requires:       %{name} = %{version}-%{release}
-Requires:       pcre-devel
+Requires:       pcre2-devel
 Requires:       libsepol-devel >= %{version}
 
 %description    devel
@@ -110,6 +110,9 @@ echo "d /run/setrans 0755 root root" > %{buildroot}/%{_libdir}/tmpfiles.d/libsel
 %{python3_sitelib}/*
 
 %changelog
+* Fri Feb 08 2024 Betty Lakes <bettylakes@microsoft.com> - 3.6-2
+- Move to pcre2 completely
+
 * Wed Mar 20 2024 Dan Streetman <ddstreet@microsoft.com> - 3.6-2
 - fix tmpfiles.d conf to avoid "Line references path below legacy directory
   /var/run/" warnings

@@ -202,8 +202,6 @@ libsepol-3.6-1.azl3.aarch64.rpm
 glib-2.78.1-2.azl3.aarch64.rpm
 libltdl-2.4.7-1.azl3.aarch64.rpm
 libltdl-devel-2.4.7-1.azl3.aarch64.rpm
-pcre-8.45-2.azl3.aarch64.rpm
-pcre-libs-8.45-2.azl3.aarch64.rpm
 lua-5.4.6-1.azl3.aarch64.rpm
 lua-libs-5.4.6-1.azl3.aarch64.rpm
 azurelinux-rpm-macros-3.0-2.azl3.noarch.rpm

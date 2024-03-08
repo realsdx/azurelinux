@@ -298,10 +298,6 @@ pcre2-devel-10.42-2.azl3.aarch64.rpm
 pcre2-devel-static-10.42-2.azl3.aarch64.rpm
 pcre2-doc-10.42-2.azl3.noarch.rpm
 pcre2-tools-10.42-2.azl3.aarch64.rpm
-pcre-8.45-2.azl3.aarch64.rpm
-pcre-debuginfo-8.45-2.azl3.aarch64.rpm
-pcre-devel-8.45-2.azl3.aarch64.rpm
-pcre-libs-8.45-2.azl3.aarch64.rpm
 perl-5.38.2-505.azl3.aarch64.rpm
 perl-Archive-Tar-2.40-505.azl3.noarch.rpm
 perl-Attribute-Handlers-1.03-505.azl3.noarch.rpm
