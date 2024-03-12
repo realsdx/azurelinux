@@ -23,7 +23,7 @@ BuildRequires:  which
 BuildRequires:  python3-pygments
 Requires:       libffi
 Requires:       libselinux
-Requires:       pcre2-libs
+Requires:       pcre2-devel
 Provides:       glib2 = %{version}-%{release}
 Provides:       glib2%{?_isa} = %{version}-%{release}
 Provides:       glib2-static = %{version}-%{release}
