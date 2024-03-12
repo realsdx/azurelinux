@@ -1,7 +1,7 @@
 Summary:        GIO-based library with Unix/Linux specific API
 Name:           libgsystem
 Version:        2015.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Group:          Development/Libraries
 Source0:        https://src.fedoraproject.org/repo/pkgs/%{name}/%{name}-%{version}.tar.xz/e388e3ad3c2b527479cc8512f6ad9a37/%{name}-%{version}.tar.xz
 License:        LGPLv2+
@@ -22,7 +22,7 @@ BuildRequires:  attr-devel
 BuildRequires:  rpm
 BuildRequires:  autoconf
 BuildRequires:  which
-BuildRequires:  pcre-devel
+BuildRequires:  pcre2-devel
 BuildRequires:  libcap-devel
 BuildRequires:  libffi-devel
 BuildRequires:  python3
@@ -32,7 +32,7 @@ BuildRequires:  python3-gobject-introspection
 Requires:   glib
 Requires:   libcap
 Requires:   libffi
-Requires:   pcre
+Requires:   pcre2
 Requires:   gobject-introspection
 %description
 LibGSystem is a GIO-based library usable as a "git submodule",
@@ -84,6 +84,9 @@ make %{?_smp_mflags} check
 %{_datadir}/gir-*/*.gir
 
 %changelog
+* Fri Mar 08 2024 Betty Lakes <bettylakes@microsoft.com> - 2015.2-9
+- Move to pcre2
+
 * Wed Sep 20 2023 Jon Slobodzian <joslobo@microsoft.com> - 2015.2-8
 - Recompile with stack-protection fixed gcc version (CVE-2023-4039)
 
