@@ -59,7 +59,7 @@ install -vDm644 examples/transparent_proxy.cfg  %{buildroot}/%{_sysconfdir}/hapr
 %{_mandir}/*
 
 %changelog
-* Fri Feb 08 2024 Betty Lakes <bettylakes@microsoft.com> - 2.9.1-2
+* Fri Mar 08 2024 Betty Lakes <bettylakes@microsoft.com> - 2.9.1-2
 - Move to pcre2
 
 * Tue Jan 02 2024 Muhammad Falak <mwani@microsoft.com> - 2.9.1-1

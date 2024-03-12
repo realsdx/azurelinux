@@ -109,7 +109,7 @@ echo "d /run/setrans 0755 root root" > %{buildroot}/%{_libdir}/tmpfiles.d/libsel
 %{python3_sitelib}/*
 
 %changelog
-* Fri Feb 08 2024 Betty Lakes <bettylakes@microsoft.com> - 3.6-2
+* Fri Mar 08 2024 Betty Lakes <bettylakes@microsoft.com> - 3.6-2
 - Move to pcre2 completely
 
 * Wed Mar 20 2024 Dan Streetman <ddstreet@microsoft.com> - 3.6-2
