@@ -172,7 +172,7 @@ Summary:        Network configuration tool using YAML (systemd-networkd backend)
 Group:          System Environment/Base
 Requires:       %{name} = %{version}-%{release}
 # Netplan requires systemd-networkd for configuration
-Requires:       systemd-networkd
+Requires:       systemd
 
 # Wireless configuration through netplan requires using wpa_supplicant
 Suggests:       wpa_supplicant
