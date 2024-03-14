@@ -2381,6 +2381,7 @@
                 "sdbus-cpp",
                 "sgx-backwards-compatability",
                 "shim",
+                "shim-signed",
                 "skopeo",
                 "span-lite",
                 "sriov-network-device-plugin",
