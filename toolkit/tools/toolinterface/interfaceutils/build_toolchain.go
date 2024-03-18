@@ -7,6 +7,17 @@ import (
 	"fmt"
 )
 
-func BuildToolchain() {
+func BuildToolchain(rebuild bool) (err error) {
 	fmt.Println("Building toolchain ...")
+	// check if we need to build toolchain
+	var shouldBuild bool
+	shouldBuild = buildStatusToolchain(rebuild)
+	if shouldBuild {
+		err = buildToolchain()
+		if err != nil {
+			fmt.Println("failed to build toolchain %v", err)
+			return err
+		}
+	}
 }
+
