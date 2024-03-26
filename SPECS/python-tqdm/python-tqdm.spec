@@ -6,7 +6,7 @@ Instantly make your loops show a smart progress meter - just wrap any iterable\
 with "tqdm(iterable)", and you are done!
 Summary:        Fast, Extensible Progress Meter
 Name:           python-%{srcname}
-Version:        4.66.1
+Version:        4.66.2
 Release:        1%{?dist}
 License:        MPLv2.0 AND MIT
 Vendor:         Microsoft Corporation
@@ -24,7 +24,6 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-pip
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-wheel
-BuildRequires:  python3-toml
 BuildRequires:  python3-packaging
 
 %description -n python3-%{srcname} %{_description}
@@ -72,8 +71,8 @@ install -Dpm0644 \
 
 
 %changelog
-* Fri Feb 02 2024 Henry Li <lihl@microsoft.com> - 4.66.1-1
-- Upgrade version to 4.66.1
+* Fri Feb 02 2024 Henry Li <lihl@microsoft.com> - 4.66.2-1
+- Upgrade version to 4.66.2
 
 * Fri Dec 16 2022 Sam Meluch <sammeluch@microsoft.com> - 4.63.1-2
 - Update version of tox used for package tests
