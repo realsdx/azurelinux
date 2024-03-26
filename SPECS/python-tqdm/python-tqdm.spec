@@ -25,13 +25,18 @@ BuildRequires:  python3-pip
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-wheel
 BuildRequires:  python3-packaging
-BuildRequires:  python3-toml
+BuildRequires:  python3-setuptools_scm
+%if 0%{with_check}
+BuildRequires:  python3-pytest
+BuildRequires:  python3-tensorflow
+%endif
 
 %description -n python3-%{srcname} %{_description}
 
 Python 3 version.
 
 %prep
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %autosetup -n %{srcname}-%{version}
 chmod -x tqdm/completion.sh
 	
@@ -43,9 +48,11 @@ echo 'include tqdm/completion.sh' >> MANIFEST.in
 %pyproject_buildrequires -r
 
 %build
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_wheel
 
 %install
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_install
 %pyproject_save_files %{srcname}
 
@@ -57,14 +64,23 @@ install -Dpm0644 \
   %{buildroot}%{_datadir}/bash-completion/completions/tqdm.bash
 
 %check
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
+pip3 install --upgrade pip
+pip3 install iniconfig \
+  pytest-timeout \
+  pytest-asyncio>=0.17 \
+  numpy \
+  dask \
+  rich \
+  pandas \
+  keras
 %pytest
 
-%files -n python3-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENCE
 %doc README.rst examples
 %{_bindir}/%{srcname}
 %{_mandir}/man1/%{srcname}.1*
-%{python3_sitelib}/%{srcname}/
 %dir %{_datadir}/bash-completion
 %dir %{_datadir}/bash-completion/completions
 %{_datadir}/bash-completion/completions/tqdm.bash
