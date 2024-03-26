@@ -1,8 +1,8 @@
-# Mariner Image Customizer ISO Support
+# Azure Linux Image Customizer ISO Support
 
 ## Overview
 
-Given a full disk image, the Mariner Image Customizer (MIC) can generate a
+Given a full disk image, the Azure Linux Image Customizer can generate a
 LiveOS ISO image when the `--output-image-format` is set to `iso`.
 
 The LiveOS ISO image is a bootable image that boots into the rootfs of the
@@ -43,7 +43,7 @@ The current implementation for the LiveOS ISO does not support the following:
 - The user can specify one or more files to be copied to the iso media.
 - The user can add kernel parameters.
 
-For a full list of capabilities, see Mariner Image Customizer's iso
+For a full list of capabilities, see Azure Linux Image Customizer's iso
 configuration section: [Config.ISO](./configuration.md#iso-type).
 
 ## cloud-init Support
@@ -64,18 +64,18 @@ cloud-init data files).
 If cloud-init data is to be placed directly within the iso file system:
 
 ```yaml
-Iso:
-  AdditionalFiles:
+iso:
+  additionalFiles:
     cloud-init-data/user-data: /cloud-init-data/user-data
     cloud-init-data/network-config: /cloud-init-data/network-config
     cloud-init-data/meta-data: /cloud-init-data/meta-data
-  KernelCommandLine:
+  kernelCommandLine:
     ExtraCommandLine: "'ds=nocloud;s=file://run/initramfs/live/cloud-init-data'"
-SystemConfig:
-  Users:
-  - Name: test
-    Password: testpassword
-    PrimaryGroup: sudo
+os:
+  users:
+  - name: test
+    password: testpassword
+    primaryGroup: sudo
 ```
 
 #### Example 2
@@ -83,15 +83,15 @@ SystemConfig:
 If cloud-init data is to be placed within the LiveOS root file system:
 
 ```yaml
-Iso:
-  KernelCommandLine:
-    ExtraCommandLine: "'ds=nocloud;s=file://cloud-init-data'"
-SystemConfig:
-  Users:
-  - Name: test
-    Password: testpassword
-    PrimaryGroup: sudo
-  AdditionalFiles:
+iso:
+  kernelCommandLine:
+    extraCommandLine: "'ds=nocloud;s=file://cloud-init-data'"
+os:
+  users:
+  - name: test
+    password: testpassword
+    primaryGroup: sudo
+  additionalFiles:
     cloud-init-data/user-data: /cloud-init-data/user-data
     cloud-init-data/network-config: /cloud-init-data/network-config
     cloud-init-data/meta-data: /cloud-init-data/meta-data

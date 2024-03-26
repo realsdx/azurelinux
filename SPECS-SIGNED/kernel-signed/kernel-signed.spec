@@ -10,7 +10,7 @@
 Summary:        Signed Linux Kernel for %{buildarch} systems
 Name:           kernel-signed-%{buildarch}
 Version:        6.6.14.1
-Release:        2%{?dist}
+Release:        5%{?dist}
 License:        GPLv2
 Vendor:         Microsoft Corporation
 Distribution:   Azure Linux
@@ -119,7 +119,7 @@ echo "initrd generation of kernel %{uname_r} will be triggered later" >&2
 
 %triggerun -n kernel -- initramfs
 rm -rf %{_localstatedir}/lib/rpm-state/initramfs/pending/%{uname_r}
-rm -rf /boot/initrd.img-%{uname_r}
+rm -rf /boot/initramfs-%{uname_r}.img
 echo "initrd of kernel %{uname_r} removed" >&2
 
 %postun -n kernel
@@ -136,8 +136,6 @@ echo "initrd of kernel %{uname_r} removed" >&2
 /boot/config-%{uname_r}
 /boot/vmlinuz-%{uname_r}
 /boot/.vmlinuz-%{uname_r}.hmac
-%config(noreplace) %{_sysconfdir}/default/grub.d/10_kernel.cfg
-%config %{_localstatedir}/lib/initramfs/kernel/%{uname_r}
 %defattr(0644,root,root)
 /lib/modules/%{uname_r}/*
 /lib/modules/%{uname_r}/.vmlinuz.hmac
@@ -147,6 +145,15 @@ echo "initrd of kernel %{uname_r} removed" >&2
 %exclude /module_info.ld
 
 %changelog
+* Tue Mar 19 2024 Dan Streetman <ddstreet@microsoft.com> - 6.6.14.1-5
+- remove unnecessary 10_kernel.cfg grub config file
+
+* Wed Mar 06 2024 Chris Gunn <chrisgun@microsoft.com> - 6.6.14.1-4
+- Remove /var/lib/initramfs/kernel files.
+
+* Fri Feb 23 2024 Chris Gunn <chrisgun@microsoft.com> - 6.6.14.1-3
+- Rename initrd.img-<kver> to initramfs-<kver>.img
+
 * Tue Jan 30 2024 Cameron Baird <cameronbaird@microsoft.com> - 6.6.14.1-2
 - Remove legacy /boot/mariner.cfg
 - Introduce /etc/default/grub.d/10_kernel.cfg
