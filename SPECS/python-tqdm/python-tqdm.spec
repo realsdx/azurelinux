@@ -63,7 +63,6 @@ install -Dpm0644 \
 %doc README.rst examples
 %{_bindir}/%{srcname}
 %{_mandir}/man1/%{srcname}.1*
-%{python3_sitelib}/%{srcname}-*.egg-info/
 %{python3_sitelib}/%{srcname}/
 %dir %{_datadir}/bash-completion
 %dir %{_datadir}/bash-completion/completions
