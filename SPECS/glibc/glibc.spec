@@ -152,7 +152,6 @@ cd %{_builddir}/%{name}-build
         --enable-kernel=3.2 \
         --enable-bind-now \
         --enable-static-pie \
-        --disable-experimental-malloc \
 %ifarch x86_64
         --enable-cet \
 %endif
@@ -322,6 +321,9 @@ grep "^FAIL: nptl/tst-eintr1" tests.sum >/dev/null && n=$((n+1)) ||:
 %defattr(-,root,root)
 
 %changelog
+* Thu Mar 28 2024 Sriram Nambakam <snambakam@microsoft.com> - 2.35-7
+- Compile with experimental malloc
+
 * Wed Oct 04 2023 Minghe Ren <mingheren@microsoft.com> - 2.35-6
 - Add patches for CVE-2023-4806 and CVE-2023-5156
 
