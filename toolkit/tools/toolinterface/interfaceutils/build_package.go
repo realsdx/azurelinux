@@ -6,23 +6,23 @@ package interfaceutils
 import (
 	"fmt"
 
-//	packagelist "github.com/microsoft/azurelinux/toolkit/tools/internal/packlist"
+	packagelist "github.com/microsoft/azurelinux/toolkit/tools/internal/packlist"
 	"github.com/microsoft/azurelinux/toolkit/tools/pkg/specreaderutils"
 	"github.com/microsoft/azurelinux/toolkit/tools/toolinterface/configutils"
 )
 
 var (
-	azlSpecsDirs = [...] string {"SPECS", "SPECS-EXTENDED", "SPECS-SIGNED"}
+	azlSpecsDirs = [...] string {"/home/neha/repos/test/CBL-Mariner/SPECS/", "SPECS-EXTENDED", "SPECS-SIGNED"}
 	// get relevant configs
 	toolkit_dir string
 )
 
 func BuildPackage(spec string) (err error) {
-
+	// build global config map
 	configutils.PopulateConfigFromFile()
 	toolkit_dir,_ = configutils.GetConfig("toolkit_root")
 
-	fmt.Println("Building packages specs are (%s)", spec)
+	fmt.Println("Building packages: specs are (%s)", spec)
 
 	// check specs exist
 	specsDir, err := validateSpecExistance(spec)
@@ -58,17 +58,16 @@ func BuildPackage(spec string) (err error) {
 }
 
 // validateSpecExistance checks if each spec in specList exists
-// and assigns it the correct specsDir in which it exists
+// If the spec exists, it assigns it the correct specsDir
 func validateSpecExistance(specList string) (specsDir string, err error) {
 	fmt.Println("Checking if spec exists for (%s)", specList)
-//	specMap, err := packagelist.ParsePackageList(*specList)
-//	if err != nil {
-//		err = fmt.Errorf("failed to parse package list file:\n%w", err)
-//		return nil, err
-//	}
+	specMap, err := packagelist.ParsePackageList(specList)
+	if err != nil {
+		err = fmt.Errorf("failed to parse package list:\n%w", err)
+		return
+	}
 
 	// TODO: currently, we have a limitation that all specs to be built must be present in the same specsDir
-	var specMap = make(map[string]bool)
 	for _, specsDir := range azlSpecsDirs {
 		specFiles, err := specreaderutils.FindSpecFiles(specsDir, specMap)
 		if err != nil {
@@ -85,7 +84,17 @@ func validateSpecExistance(specList string) (specsDir string, err error) {
 
 func buildSpecs (specs, specsDir string) (err error) {
 	// TODO: use a command builder
-	err = execCommands("/usr/bin/make", "/home/neha/repos/test/CBL-Mariner/toolkit/", "build-packages", "SRPM_PACK_LIST=\"cracklib\"", "SPECS_DIR=/home/neha/repos/test/CBL-Mariner/SPECS2/")
+	// TODO: some of these arguments can be removed if/when tools start reading directly from config
+	srpm_pack_list := "SRPM_PACK_LIST="
+	srpm_pack_list +=specs
+	srpm_pack_list +=""
+	fmt.Println("srpm pack listis ", srpm_pack_list)
+
+	err = execCommands("make",
+		"/home/neha/repos/test/CBL-Mariner/toolkit/",
+		"build-packages",
+		"SPECS_DIR=/home/neha/repos/test/CBL-Mariner/SPECS/",
+		srpm_pack_list )
 	if err != nil {
 		fmt.Println(err)
 	}

@@ -35,6 +35,7 @@ func buildStatusToolchain() (rebuildOpt bool, err error) {
 }
 
 func execCommands(app, dir string, args ...string) (err error) {
+    fmt.Println("args is ", args)
 	cmd := exec.Command(app, args...)
 	if dir != "" {
 		cmd.Dir = dir
