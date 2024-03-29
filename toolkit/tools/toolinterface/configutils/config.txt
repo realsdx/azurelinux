@@ -1,4 +1,4 @@
 // dummy file to store build configs
 
-toolkit_root:/home/neha/repos/test/CBL-Mariner/toolkit
+toolkit_root:<PROJECT_ROOT>/toolkit/
 hi:there

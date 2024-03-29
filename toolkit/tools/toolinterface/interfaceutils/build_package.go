@@ -12,7 +12,7 @@ import (
 )
 
 var (
-	azlSpecsDirs = [...] string {"/home/neha/repos/test/CBL-Mariner/SPECS/", "SPECS-EXTENDED", "SPECS-SIGNED"}
+	azlSpecsDirs = [...] string {"/home/neha/repos/fresh/azurelinux/SPECS/", "SPECS-EXTENDED", "SPECS-SIGNED"}
 	// get relevant configs
 	toolkit_dir string
 )
@@ -85,18 +85,19 @@ func validateSpecExistance(specList string) (specsDir string, err error) {
 func buildSpecs (specs, specsDir string) (err error) {
 	// TODO: use a command builder
 	// TODO: some of these arguments can be removed if/when tools start reading directly from config
-	srpm_pack_list := "SRPM_PACK_LIST="
+	srpm_pack_list := "SRPM_PACK_LIST=\""
 	srpm_pack_list +=specs
-	srpm_pack_list +=""
+	srpm_pack_list +="\""
 	fmt.Println("srpm pack listis ", srpm_pack_list)
 
 	err = execCommands("make",
-		"/home/neha/repos/test/CBL-Mariner/toolkit/",
+		toolkit_dir,
 		"build-packages",
-		"SPECS_DIR=/home/neha/repos/test/CBL-Mariner/SPECS/",
 		srpm_pack_list )
+//	err = execCommands("/usr/bin/make", toolkit_dir, "build-packages", "SRPM_PACK_LIST=\"cracklib\"")
 	if err != nil {
 		fmt.Println(err)
 	}
+
 	return
 }
