@@ -17,7 +17,7 @@ import (
 //					- there is a change in toolchain manifest
 //					- user wants to rebuild spec
 func buildStatus() (err error) {
-	fmt.Println("in buildStatus")
+	fmt.Println("[debug] in buildStatus")
 	return
 
 }
@@ -44,12 +44,12 @@ func execCommands(app, dir string, args ...string) (err error) {
 
 	err = cmd.Start()
 	if err != nil {
-		fmt.Printf("failed to exec cmd.Start():\n%w", err)
+		err = fmt.Errorf("failed to exec cmd.Start():\n%w", err)
         return
 	}
 	err = cmd.Wait()
 	if err != nil {
-		fmt.Printf("failed to exec cmd.Run():\n%w", err)
+		err = fmt.Errorf("failed to exec cmd.Run():\n%w", err)
         return
 	}
     return

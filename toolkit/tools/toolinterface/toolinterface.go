@@ -37,29 +37,29 @@ func main() {
 	switch kingpin.MustParse(app.Parse(os.Args[1:])) {
 		case buildPackage.FullCommand():
 			fmt.Println("If this is your first time building Azure Linux, please consider running `setup` to set up your machine")
-			fmt.Println("in build_package ")
-			fmt.Println("spec list is ", *spec)
+			fmt.Println("[debug] in build_package ")
+			fmt.Println("[debug] spec list is ", *spec)
 			err = interfaceutils.BuildPackage(*spec)
 			if err != nil {
-				fmt.Println("failed to build package %v", err)
+				fmt.Println("[***ERROR***] failed to build package %v", err)
 			}
 			fmt.Println("Please consider running `ready` before pushing your changes to upstream")
 		case buildImage.FullCommand():
-		  fmt.Println("in image ")
-		  fmt.Println("config file is ", *config)
+		  fmt.Println("[debug] in image ")
+		  fmt.Println("[debug] config file is ", *config)
 		  err = interfaceutils.BuildImage(*config)
 		  if err != nil {
-			fmt.Println("failed to build image %v", err)
+			fmt.Println("[***ERROR***] failed to build image %v", err)
 		}
 		fmt.Println("Please consider running `ready` before pushing your changes to upstream")
 		case buildTool.FullCommand():
-			fmt.Println("in tools ")
+			fmt.Println("[debug] in tools ")
 			fmt.Println("Please consider running `ready` before pushing your changes to upstream")
 		case ready.FullCommand():
-			fmt.Println("in ready ")
+			fmt.Println("[debug] in ready ")
 			err = interfaceutils.ReadyChanges()
 			if err != nil {
-				fmt.Println("failed to ready changes %v", err)
+				fmt.Println("[***ERROR***] failed to ready changes %v", err)
 			}
 		default:
 			fmt.Println("Invalid call")

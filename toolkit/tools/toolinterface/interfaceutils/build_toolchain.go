@@ -9,7 +9,7 @@ import (
 
 // user should not have to care if it is a toolchain package or non toolchain package
 func BuildToolchain() (err error) {
-	fmt.Println("Building toolchain ...")
+	fmt.Println("[debug] Building toolchain")
 	// check if we need to build toolchain
 	var shouldBuild bool
 	shouldBuild, err = buildStatusToolchain()
@@ -26,4 +26,3 @@ func BuildToolchain() (err error) {
 func buildToolchainHere()(err error) {
 	return
 }
-

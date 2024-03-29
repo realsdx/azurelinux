@@ -8,6 +8,6 @@ import (
 )
 
 func BuildImage(path string) (err error) {
-	fmt.Println("Building image ...", path)
+	fmt.Println("[debug] Building image from config path", path)
 	return
 }

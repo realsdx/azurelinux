@@ -21,7 +21,7 @@ var (
 // ReadyChanges runs various tools to ready changes for contributing to upstream open source repo
 // TODO: use a command builder
 func ReadyChanges() (err error) {
-	fmt.Println("Ready changes ...")
+	fmt.Println("[debug] Ready changes")
 
 	// update licenses.json file if there are any changes in spec licenses
 	err = execCommands("ls", "/home/neha/repos/test/CBL-Mariner/toolkit/")
