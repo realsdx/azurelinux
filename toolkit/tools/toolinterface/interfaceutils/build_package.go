@@ -96,7 +96,8 @@ func buildSpecs (specs, specsDir string) (err error) {
 		toolkit_dir,
 		"build-packages",
 		"REBUILD_TOOLS=y",
-//	err = execCommands("/usr/bin/make", toolkit_dir, "build-packages", "SRPM_PACK_LIST=\"cracklib\"")
+		srpm_pack_list)
+
 	if err != nil {
 		fmt.Println(err)
 	}

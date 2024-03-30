@@ -62,6 +62,6 @@ func main() {
 				fmt.Println("[***ERROR***] failed to ready changes %v", err)
 			}
 		default:
-			fmt.Println("Invalid call")
+			fmt.Println("[***ERROR***] Invalid option")
 	}
 }

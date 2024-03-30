@@ -1,4 +1,6 @@
-// dummy file to store build configs
+// file to store build configs
 
 toolkit_root:<PROJECT_ROOT>/toolkit/
-hi:there
+BUILD_DIR:<PROJECT_ROOT>/build
+OUT_DIR:<PROJECT_ROOT>/out
+SPECS_DIR:<PROJECT_ROOT>/SPECS
