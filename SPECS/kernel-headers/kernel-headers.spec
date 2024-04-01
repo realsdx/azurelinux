@@ -12,7 +12,7 @@
 Summary:        Linux API header files
 Name:           kernel-headers
 Version:        5.15.148.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        GPLv2
 Vendor:         Microsoft Corporation
 Distribution:   Mariner
@@ -73,6 +73,10 @@ done
 %endif
 
 %changelog
+
+* Mon Apr 01 2024 Sriram Nambakam <snambakam@microsoft.com> - 5.15.148.2-3
+- set transparent hugepages to madvise
+
 * Wed Feb 14 2024 Rachel Menge <rachelmenge@microsoft.com> - 5.15.148.2-2
 - Bump release to match kernel
 
